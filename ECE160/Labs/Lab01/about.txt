@@ -1,0 +1,49 @@
+﻿What is your name?
+
+        Daniel Noyes
+
+####################
+How would you spell you phonetically?
+
+        Daniel noise
+
+####################
+If you have a nickname, what is it?
+
+        you can call me Dan
+
+####################
+What (if any) programming courses did you take in high school or elsewhere?
+
+        did not take any programming courses in high school.
+
+####################
+What programming languages do you know?
+
+         I learned how to program scripts(shell scripts), i still need to learn more about scripts. I understand the fundamentals of Java, pearl, python (just touched the surface of the program languages)
+
+------------------------
+0---------------5---------------10
+don't know|      know       |    know extensive amount
+
+Java            2
+c/c++           2
+shell script    5
+php             2
+Perl            1
+python          1
+Basic           3
+
+------------------------
+
+####################
+What high school did you go to (name, location)?
+
+Stoughton High School(SHS), Stoughton Massachusetts
+
+####################
+What do you hope to get out of this course?
+
+to successfully learn c, c++. and to learn how to properly develop code.
+
+
