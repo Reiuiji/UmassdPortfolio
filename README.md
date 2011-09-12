@@ -1,4 +1,4 @@
-# UmassdCode
+# UmassdPortfolio
 =================
 
 Welcome to my collection of code I created for University of Massachusetts Dartmouth
