@@ -1,7 +1,7 @@
 # UmassdPortfolio
 =================
 
-Welcome to my collection of code I created for University of Massachusetts Dartmouth
+Collection of all work I accomplished at University of Massachusetts Dartmouth
 
 Courses
 =======
