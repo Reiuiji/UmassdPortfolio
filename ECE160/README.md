@@ -12,30 +12,30 @@ Labs
 ====
 | Lab | Description |
 |-----|-------------|
-| 01  | About Me (Text and Picture)
-| 02  | hello
-| 03  | evalexpr
-| 04  | stars
-| 05  | payroll
-| 06  | trigd
-| 07  | bigsml
-| 08  | countpi
-| 09  | filebigsml
-| 10  | ispalindrome
+| [01](Labs/Lab01)  | About Me (Text and Picture)
+| [02](Labs/Lab02)  | hello
+| [03](Labs/Lab03)  | evalexpr
+| [04](Labs/Lab04)  | stars
+| 05  | payroll (debug tutorial = no code)
+| [06](Labs/Lab06)  | trigd
+| [07](Labs/Lab07)  | bigsml
+| [08](Labs/Lab08)  | countpi
+| [09](Labs/Lab09)  | filebigsml
+| [10](Labs/Lab10)  | ispalindrome
 
 
 Projects
 ========
 | Projects | Description |
 |----------|-------------|
-| 01       | Quad
-| 02       | Convert
-| 03       | Dots
-| 04       | DayOfWeek
-| 05       | fsqrt,dsqrt
-| 06       | Degree
-| 07       | Mean,Med
-| 08       | eee
-| 09       | stutest1 (N,ID)
-| 10       | stutest2 (N, nam)
-| 11       | stutest3 (N,M,nam)
+| [01](Projects/Project01)       | Quad
+| [02](Projects/Project02)       | Convert
+| [03](Projects/Project03)       | Dots
+| [04](Projects/Project04)       | DayOfWeek
+| [05](Projects/Project05)       | fsqrt,dsqrt (Never gave out)
+| [06](Projects/Project06)       | Degree
+| [07](Projects/Project07)       | Mean,Med
+| [08](Projects/Project08)       | eee
+| [09](Projects/Project09)       | stutest1 (N,ID)
+| [10](Projects/Project10)       | stutest2 (N, nam)
+| [11](Projects/Project11)       | stutest3 (N,M,nam)
