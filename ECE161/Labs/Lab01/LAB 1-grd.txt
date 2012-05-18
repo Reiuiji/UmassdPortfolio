@@ -1,0 +1,87 @@
+**********************************************************************
+Name: Daniel Noyes
+Prog: LAB 1
+grad: 90
+user: dnoyes
+Due: 2/3/2012 11:59:59 PM
+Graded: 2/8/2012 3:44:43 PM
+ece161lab1.cpp Submitted: 2/3/2012 11:51:43 PM
+Comments: Need comments, needs return statement for int main
+ece161lab1.cpp
+** start file ********************************************************
+/*   1*/ /* ECE161lab1 project 
+/*   2*/ I, Daniel Noyes, certify that this is my own work and I have not collaborated with anyone else.
+/*   3*/ I encourage the use of this program as OPEN SOURCE.
+/*   4*/ */
+/*   5*/ 
+/*   6*/ #include <stdio.h>
+/*   7*/ //set the limit of the number of items your doing in the array
+/*   8*/ #define NUMLIST 10
+/*   9*/ //extend will have the array price times quantity which will equal the amount
+/*  10*/ void extend(float x[], float y[], float z[],int NUM);
+/*  11*/ 
+/*  12*/ int main()
+/*  13*/ {
+/*  14*/ 	int i,NUM=NUMLIST;
+/*  15*/ 	float price[NUMLIST]={10.62, 14.89, 13.21, 16.55, 18.62, 9.47, 6.58, 18.32, 12.15, 3.98};
+/*  16*/ 	float quantity[NUMLIST]={4, 8.5, 6, 7.35, 9, 15.3, 3, 5.4, 2.9, 4.8};
+/*  17*/ 	float amount[NUMLIST];
+/*  18*/ 
+/*  19*/ 	extend(price,quantity,amount,NUM);
+/*  20*/ 	//print the top of the list pool
+/*  21*/ 	printf("____________________________\n");
+/*  22*/ 	printf("| Price  |Quantity| Amount |\n");
+/*  23*/ 	//print the data of prive wuantity and amount
+/*  24*/ 	for (i=0;i<NUMLIST;i++)
+/*  25*/ 	{
+/*  26*/ 		printf("|--------|--------|--------|\n");
+/*  27*/ 		printf("| %6.2f | %6.2f | %6.2f |\n",price[i],quantity[i],amount[i]);
+/*  28*/ 	}
+/*  29*/ 	//end the list pool
+/*  30*/ 	printf("|==========================|\n");
+/*  31*/ 
+/*  32*/ }
+/*  33*/ 
+/*  34*/ void extend(float x[], float y[], float z[], int NUM)
+/*  35*/ {
+/*  36*/ 	int i;
+/*  37*/ 	for(i=0;i<NUM;i++)
+/*  38*/ 	{
+/*  39*/ 		z[i]=x[i]*y[i];
+/*  40*/ 	}
+/*  41*/ }
+** compiled *********************************************************
+ece161lab1.cpp
+Microsoft (R) Incremental Linker Version 10.00.30319.01
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+"/out:C:\Users\David\Dropbox\David-Steve\Grading\ece161lab1\LAB 1\dnoyes.exe" 
+ece161lab1.obj 
+
+
+********** console output **********
+____________________________
+| Price  |Quantity| Amount |
+|--------|--------|--------|
+|  10.62 |   4.00 |  42.48 |
+|--------|--------|--------|
+|  14.89 |   8.50 | 126.57 |
+|--------|--------|--------|
+|  13.21 |   6.00 |  79.26 |
+|--------|--------|--------|
+|  16.55 |   7.35 | 121.64 |
+|--------|--------|--------|
+|  18.62 |   9.00 | 167.58 |
+|--------|--------|--------|
+|   9.47 |  15.30 | 144.89 |
+|--------|--------|--------|
+|   6.58 |   3.00 |  19.74 |
+|--------|--------|--------|
+|  18.32 |   5.40 |  98.93 |
+|--------|--------|--------|
+|  12.15 |   2.90 |  35.24 |
+|--------|--------|--------|
+|   3.98 |   4.80 |  19.10 |
+|==========================|
+
+

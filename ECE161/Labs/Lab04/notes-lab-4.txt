@@ -1,0 +1,40 @@
+stop secure warnings
+#define _CRT_SECURE_NO_WARNINGS
+
+//grabs the standard input output libraries
+#include <stdio.h>
+
+//grabs the standard library
+#include <stdlib.h>
+
+//grabs the string library 
+#include <string.h>
+
+sets a global variable
+#define MAXSTU 50
+
+//sets a structure declaration
+typedef struct
+{
+	char name[26];
+	int id;
+	int exam[4];
+	float avg;
+} STUDENT ;
+
+/*
+you can access each structure by typing
+[variable].name access the char name
+[variable].id access the int id
+etc
+*/
+
+int main()
+{
+STUDENT student[MAXSTU]
+
+
+
+
+
+}

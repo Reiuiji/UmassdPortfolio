@@ -1,0 +1,89 @@
+**********************************************************************
+Name: Daniel Noyes
+Prog: LAB 5
+grad: 100
+user: dnoyes
+Due: 3/9/2012 11:59:59 PM
+Graded: 3/16/2012 3:10:19 PM
+ece161lab5.cpp Submitted: 3/7/2012 12:03:52 AM
+Comments: None
+ece161lab5.cpp
+** start file ********************************************************
+/*   1*/ /* ECE161lab5 project 
+/*   2*/ I, Daniel Noyes, certify that this is my own work and I have not collaborated with anyone else.
+/*   3*/ I encourage the use of this program as OPEN SOURCE.
+/*   4*/ 
+/*   5*/ */
+/*   6*/ 
+/*   7*/ //stops the secure warnings
+/*   8*/ #define _CRT_SECURE_NO_WARNINGS
+/*   9*/ 
+/*  10*/ //grabs the standard input output libraries
+/*  11*/ #include <stdio.h>
+/*  12*/ 
+/*  13*/ //sets the Euclid's algorithm funcition
+/*  14*/ int gcd(int m, int n);
+/*  15*/ 
+/*  16*/ //main
+/*  17*/ int main()
+/*  18*/ {
+/*  19*/ 	//define variables
+/*  20*/ 	int x,y,z;
+/*  21*/ 
+/*  22*/ 	//print the output information
+/*  23*/ 	printf("Enter two non-negative integers: ");
+/*  24*/ 	
+/*  25*/ 	//input for the two intergers
+/*  26*/ 	scanf("%d %d", &x, &y);
+/*  27*/ 
+/*  28*/ 	//execute the gcd command
+/*  29*/ 	z=gcd(x, y);
+/*  30*/ 
+/*  31*/ 	//prints the output of the gcd command to the screen
+/*  32*/ 	printf("\n%d\n",z);
+/*  33*/ 
+/*  34*/ 	return 0;
+/*  35*/ }
+/*  36*/ 
+/*  37*/ int gcd(int m, int n)
+/*  38*/ {
+/*  39*/ 
+/*  40*/ //check if n eauals zero, if it is true it will return the value of m in the function
+/*  41*/ 	if (n == 0)
+/*  42*/ 		return m;
+/*  43*/ 
+/*  44*/ //check if n does not equal zero, if the argument is true then it will do a recursion loop of the function untill it find the gcd
+/*  45*/ 	if (n != 0)
+/*  46*/ 		return gcd(n,m%n);
+/*  47*/ 
+/*  48*/ }
+** compiled *********************************************************
+ece161lab5.cpp
+c:\users\david\dropbox\david-steve\grading\ece161lab1\lab 5\workingdir\ece161lab5.cpp(48) : warning C4715: 'gcd' : not all control paths return a value
+Microsoft (R) Incremental Linker Version 10.00.30319.01
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+"/out:C:\Users\David\Dropbox\David-Steve\Grading\ece161lab1\LAB 5\dnoyes.exe" 
+ece161lab5.obj 
+
+
+********** console output **********
+Enter two non-negative integers: 
+5
+
+
+********** console output **********
+Enter two non-negative integers: 
+12
+
+
+********** console output **********
+Enter two non-negative integers: 
+4
+
+
+********** console output **********
+Enter two non-negative integers: 
+1
+
+

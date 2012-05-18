@@ -1,0 +1,12 @@
+Richards,Scott		1011	67 	74 77	87
+Brito,Alexander		1017	78 	82 95	98
+Dorian,Bret		1005	84 	81 90	92
+Jefferson,Manuel	1127	52 	 0 77	79
+Kelsey,Anne		1110	81 	77 84	80
+Leblanc,Wayne		1154	70 	71 70	76
+Couto,Bret		1132	67 	77 84	88
+Teves,Louis		1125	 0 	78 89	96
+Hajjar,Ives		1222	87 	92 95	90
+Fernandes,Joseph	1246	57 	65 76	80
+Vincent,Jean		1271	67 	65 94	90
+Gomes,Marie		1300	61 	71 75	78

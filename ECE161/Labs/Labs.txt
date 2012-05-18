@@ -1,0 +1,25 @@
+Lab Projects
+Lab 1: On the use of arrays and functions (Based on ECE 160 Review)
+Name your code file ece161lab1.cpp and upload it to your engineering folder by 11:59 PM on Friday, 02-03-2012.
+Lab 2: On text files (Based on ECE 160 Review)
+Text file
+Name your code file ece161lab2.cpp and upload it to your engineering folder by 11:59 PM on Friday, 02-10-2012.
+Lab 3: Text Files & Array of Structures
+Sorting Functions: Insertion Sort & Bubble Sort
+Text file
+Name your code file ece161lab3.cpp and upload it to your engineering folder by 11:59 PM on Friday, 02-24-2012.
+Lab 4: Text Files & Array of Structures
+Text file
+Name your code file ece161lab4.cpp and upload it to your engineering folder by 11:59 PM on Tuesday, 02-28-2012.
+Lab 5: Finding the Greatest Common Divisor of Two Non-Negative Integers Recursively
+Name your code file ece161lab5.cpp and upload it to your engineering folder by 11:59 PM on Friday, 03-09-2012.
+Lab 6: Stacks as Linked Lists
+Name your code file ece161lab6.cpp and upload it to your engineering folder by 11:59 PM on Tuesday, 04-03-2012.
+Lab 7: Queues and Stacks as Linked Lists (Project 4.24 from textbook) [NOTE: Don't forget to include the short report...]
+Name your code file ece161lab7.cpp and upload it to your engineering folder by 11:59 PM on Tuesday, 04-10-2012.
+Lab 8: Linked Lists (Based on Projects 5.26 and 5.27 from textbook)
+Text file (student_data_x.txt)
+Name your code file ece161lab8.cpp and upload it to your engineering folder by 11:59 PM on Friday, 04-27-2012.
+Lab 9: Binary Search Trees (Project 7.22 from textbook)
+Text file: lab11_file.txt
+Name your code file ece161lab9.cpp and upload it to your engineering folder by 11:59 PM on Friday, 05-11-2012.

@@ -1,0 +1,11 @@
+meatloaf     4 10.62
+ham   8.5   14.89
+chicken		6  13.21
+mortadela	7.35 16.55
+salami		9    18.62
+cheese	15.3    9.47
+turkey	3  6.58
+paste		5.4   18.32
+sugar	2.9   12.15
+flour		4.8  3.98
+cake	32  2.34

@@ -1,0 +1,140 @@
+**********************************************************************
+Name: Daniel Noyes
+Prog: LAB 2
+grad: 95
+user: dnoyes
+Due: 2/10/2012 11:59:59 PM
+Graded: 2/15/2012 4:23:40 PM
+ece161lab2.cpp Submitted: 2/10/2012 5:27:53 PM
+Comments: None
+ece161lab2.cpp
+** start file ********************************************************
+/*   1*/ /* ECE161lab2 project 
+/*   2*/ I, Daniel Noyes, certify that this is my own work and I have not collaborated with anyone else.
+/*   3*/ I encourage the use of this program as OPEN SOURCE.
+/*   4*/ 
+/*   5*/ This Lab recieves data from a txt document for name, quantity, and price and outputs
+/*   6*/ the data on another file (out) with amount and total amount on the bottom
+/*   7*/ */
+/*   8*/ #define _CRT_SECURE_NO_WARNINGS
+/*   9*/ #include <stdio.h>
+/*  10*/ #include <stdlib.h>
+/*  11*/ #include <string.h>
+/*  12*/ //set the limit of the number of items your doing in the array
+/*  13*/ #define NUMLIST 100
+/*  14*/ //extend will have the array price times quantity which will equal the amount
+/*  15*/ 
+/*  16*/ int main()
+/*  17*/ {
+/*  18*/ 	//time to go crazy with comments XD
+/*  19*/ 	//define int for a temp num (i) and number of items
+/*  20*/ 	int i=0,NUM=0;
+/*  21*/ 	//define the float variable for price, quantity, amount, and total amount for the data
+/*  22*/ 	float price, quantity, amount,totalamount=0;
+/*  23*/ 	//define the name array to hold the item name
+/*  24*/ 	char name[12];
+/*  25*/ 	//set the variable for input and output file
+/*  26*/ 	FILE *DATA, *OUT;
+/*  27*/ 
+/*  28*/ 	//set the input file (data2.txt)
+/*  29*/ 	if ((DATA=fopen("data2.txt","rt")) == NULL)
+/*  30*/ 	{
+/*  31*/ 		//display input not found
+/*  32*/ 		printf("Sorry Could not find the File\nIt might have ran away from you!\nmake sure it is in the same directory as me(Program)");
+/*  33*/ 		//exit the program "EXIT_FAILURE"
+/*  34*/ 		exit(0);
+/*  35*/ 	}
+/*  36*/ 	//sets the output file (out2.txt)
+/*  37*/ 	if ( (OUT=fopen("out2.txt", "wt")) == NULL)
+/*  38*/ 	{
+/*  39*/ 		//display output file not found
+/*  40*/ 		printf("Sorry Could not find the File\nPlease Try puting the file in the same Directory as this Program");
+/*  41*/ 		//exit the program "EXIT_FAILURE"
+/*  42*/ 		exit(2);
+/*  43*/ 	}
+/*  44*/ 
+/*  45*/ 	//print the top of the list pool
+/*  46*/ 	fprintf(OUT,"__________________________________________________\n");
+/*  47*/ 	fprintf(OUT,"|  num  |     Name     | Price  |Quantity| Amount |\n");
+/*  48*/ 
+/*  49*/ 
+/*  50*/ 	//gathers the data from the data file
+/*  51*/ 	while( fscanf(DATA,"%s %f %f", name, &quantity, &price) ==3 )
+/*  52*/ 	{
+/*  53*/ 		//calculates the amount based on the price and quantity
+/*  54*/ 		amount=price*quantity;
+/*  55*/ 		//calculate the total amount cost for the items
+/*  56*/ 		totalamount+=amount;
+/*  57*/ 		//print the data of price quantity and amount
+/*  58*/ 		fprintf(OUT,"|-------|--------------|--------|--------|--------|\n");
+/*  59*/ 		fprintf(OUT,"|  %3d: | %12s | %6.2f | %6.2f | %6.2f |\n",(NUM+1),name,price,quantity,amount);
+/*  60*/ 		//set the number of items that will be displayed
+/*  61*/ 		NUM++;
+/*  62*/ 	}
+/*  63*/ 
+/*  64*/ 
+/*  65*/ 	//end the list pool
+/*  66*/ 	fprintf(OUT,"|=======+==============+========+========+========|\n");
+/*  67*/ 	fprintf(OUT,"|                                                 |\n");
+/*  68*/ 	fprintf(OUT,"|        Total Amount :  $ %-8.2f               |\n",totalamount);
+/*  69*/ 	fprintf(OUT,"|_________________________________________________|\n");
+/*  70*/ 
+/*  71*/ 	//print the total amount and the tells where the out put file it located
+/*  72*/ 	printf("|================================================|\n");
+/*  73*/ 	printf("|  All finished calculating the amount per item  |\n");
+/*  74*/ 	printf("|      you can open up the data on out2.txt      |\n");
+/*  75*/ 	printf("|             Total Amount : $ %-8.2f          |\n",totalamount);
+/*  76*/ 	printf("|================================================|\n");
+/*  77*/ 
+/*  78*/ 	return (0);
+/*  79*/ 	//return with interger type data, return without error
+/*  80*/ 	//end of program :D
+/*  81*/ 
+/*  82*/ }
+** compiled *********************************************************
+ece161lab2.cpp
+Microsoft (R) Incremental Linker Version 10.00.30319.01
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+"/out:C:\Users\David\Dropbox\David-Steve\Grading\ece161lab1\LAB 2\dnoyes.exe" 
+ece161lab2.obj 
+
+
+********** console output **********
+|================================================|
+|  All finished calculating the amount per item  |
+|      you can open up the data on out2.txt      |
+|             Total Amount : $ 930.31            |
+|================================================|
+
+
+********** File out2.txt **********
+__________________________________________________
+|  num  |     Name     | Price  |Quantity| Amount |
+|-------|--------------|--------|--------|--------|
+|    1: |     meatloaf |  10.62 |   4.00 |  42.48 |
+|-------|--------------|--------|--------|--------|
+|    2: |          ham |  14.89 |   8.50 | 126.57 |
+|-------|--------------|--------|--------|--------|
+|    3: |      chicken |  13.21 |   6.00 |  79.26 |
+|-------|--------------|--------|--------|--------|
+|    4: |    mortadela |  16.55 |   7.35 | 121.64 |
+|-------|--------------|--------|--------|--------|
+|    5: |       salami |  18.62 |   9.00 | 167.58 |
+|-------|--------------|--------|--------|--------|
+|    6: |       cheese |   9.47 |  15.30 | 144.89 |
+|-------|--------------|--------|--------|--------|
+|    7: |       turkey |   6.58 |   3.00 |  19.74 |
+|-------|--------------|--------|--------|--------|
+|    8: |        paste |  18.32 |   5.40 |  98.93 |
+|-------|--------------|--------|--------|--------|
+|    9: |        sugar |  12.15 |   2.90 |  35.24 |
+|-------|--------------|--------|--------|--------|
+|   10: |        flour |   3.98 |   4.80 |  19.10 |
+|-------|--------------|--------|--------|--------|
+|   11: |         cake |   2.34 |  32.00 |  74.88 |
+|=======+==============+========+========+========|
+|                                                 |
+|        Total Amount :  $ 930.31                 |
+|_________________________________________________|
+

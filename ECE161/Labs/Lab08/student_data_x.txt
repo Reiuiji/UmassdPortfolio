@@ -1,0 +1,9 @@
+Student name		Number of scores
+Einstein,Albert		3
+Abrew,Steve		4
+Walljasper,Chris	4
+Albert,Fred		2
+Rice,Leo		1
+Dupre,Frances		3
+Light,Dave		4
+Trapp,Sarah		4

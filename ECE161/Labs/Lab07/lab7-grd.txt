@@ -1,0 +1,448 @@
+**********************************************************************
+Name: Daniel Noyes
+Prog: lab7
+grad: 95
+user: dnoyes
+Due: 4/10/2012 11:59:59 PM
+Graded: 4/17/2012 6:47:40 PM
+ece161lab7.cpp Submitted: 4/10/2012 11:52:36 PM
+Comments: deleting should delete all at once
+ece161lab7.doc Not Submitted
+Comments: None
+ece161lab7.docx Not Submitted
+Comments: None
+Can't find some files. Directory of files follows: 
+
+-M:\ECE-161\dnoyes\ECE161Lab1.cpp
+-M:\ECE-161\dnoyes\ECE161Lab2.cpp
+-M:\ECE-161\dnoyes\ECE161Lab3.cpp
+-M:\ECE-161\dnoyes\ECE161Lab4.cpp
+-M:\ECE-161\dnoyes\ECE161Lab5.cpp
+-M:\ECE-161\dnoyes\ECE161Lab6.cpp
+-M:\ECE-161\dnoyes\ECE161Lab7-Report.txt
+-M:\ECE-161\dnoyes\ECE161Lab7.cpp
+-M:\ECE-161\dnoyes\LAB 1-grd.txt
+-M:\ECE-161\dnoyes\LAB 2-grd.txt
+-M:\ECE-161\dnoyes\LAB 3-grd.txt
+-M:\ECE-161\dnoyes\LAB 4-grd.txt
+-M:\ECE-161\dnoyes\LAB 5-grd.txt
+-M:\ECE-161\dnoyes\lab6-grd.txt
+**********************************************************************
+ece161lab7.cpp
+** start file ********************************************************
+/*   1*/ /* ECE161lab7 project
+/*   2*/ I, Daniel Noyes, certify that this is my own work and I have not collaborated with anyone else.
+/*   3*/ I encourage the use of this program as OPEN SOURCE.
+/*   4*/ 
+/*   5*/ */
+/*   6*/ 
+/*   7*/ //stops the secure warnings
+/*   8*/ #define _CRT_SECURE_NO_WARNINGS
+/*   9*/ 
+/*  10*/ //grabs the standard input output libraries
+/*  11*/ #include <stdio.h>
+/*  12*/ #include <stdlib.h>
+/*  13*/ #include <string.h>
+/*  14*/ 
+/*  15*/ //set the max structures for the program
+/*  16*/ #define MAX_STACKS 100
+/*  17*/ 
+/*  18*/ //declairs the node for the stack
+/*  19*/ typedef struct node
+/*  20*/ 	{
+/*  21*/ 	void*        dataPtr;
+/*  22*/ 	struct node* link;
+/*  23*/ 	} STACK_NODE;
+/*  24*/ 
+/*  25*/ //declairs the stack structure
+/*  26*/ typedef struct
+/*  27*/ 	{
+/*  28*/ 	int         count;
+/*  29*/ 	STACK_NODE* top;
+/*  30*/ 	} STACK;
+/*  31*/ 
+/*  32*/ //declairs the node for the Queue
+/*  33*/ typedef struct nodeQueue 
+/*  34*/ 	{
+/*  35*/ 		void*        dataPtr;
+/*  36*/ 		struct nodeQueue* next;
+/*  37*/ 	} QUEUE_NODE;
+/*  38*/ 
+/*  39*/ //declairs the Queue Structure
+/*  40*/ typedef struct
+/*  41*/ 	{
+/*  42*/ 		QUEUE_NODE* front; 
+/*  43*/ 		QUEUE_NODE* rear; 
+/*  44*/ 		int         count; 
+/*  45*/ 	} QUEUE;
+/*  46*/ 
+/*  47*/ //menu
+/*  48*/ int menu(void);
+/*  49*/ 
+/*  50*/ //menu list printer
+/*  51*/ void mlist(char *word,int Number,int spacecount);
+/*  52*/ 
+/*  53*/ //create stack function
+/*  54*/ STACK*	createStack (void);
+/*  55*/ 
+/*  56*/ //push stack function that will add to the top of the stack
+/*  57*/ bool    pushStack    (STACK* stack, void* dataInPtr);
+/*  58*/ 
+/*  59*/ //pop stack function that will remove the top item in a stack
+/*  60*/ bool popStack (STACK* stack, void** dataOutPtr);
+/*  61*/ 
+/*  62*/ //check if the stack is empty
+/*  63*/ bool emptyStack (STACK* stack);
+/*  64*/ 
+/*  65*/ //removes a stack from the program
+/*  66*/ STACK* destroyStack (STACK* stack);
+/*  67*/ 
+/*  68*/ //create queue function
+/*  69*/ QUEUE* createQueue (void);
+/*  70*/ 
+/*  71*/ //insert queue function
+/*  72*/ bool enqueue (QUEUE* queue, void* itemPtr);
+/*  73*/ 
+/*  74*/ //remove queue function
+/*  75*/ bool dequeue (QUEUE* queue,	void** itemPtr);
+/*  76*/ 
+/*  77*/ //destroy queue function
+/*  78*/ QUEUE* destroyQueue (QUEUE* queue);
+/*  79*/ 
+/*  80*/ //check if queue is empty
+/*  81*/ bool  emptyQueue (QUEUE* queue);
+/*  82*/ 
+/*  83*/ //main
+/*  84*/ int main()
+/*  85*/ {
+/*  86*/ 	//set the temp variables
+/*  87*/ 	int num,tmp1=0,tmp2=0;
+/*  88*/ 
+/*  89*/ 	//set the end action for the program
+/*  90*/ 	bool end = false;
+/*  91*/ 	
+/*  92*/ 	//create the input stack
+/*  93*/ 	STACK* InputStack = createStack();
+/*  94*/ 
+/*  95*/ 	//create the output stack
+/*  96*/ 	STACK* OutputStack = createStack();
+/*  97*/ 
+/*  98*/ 	//create the input queue
+/*  99*/ 	QUEUE* InputQueue = createQueue();
+/* 100*/ 
+/* 101*/ 	//create the output queue
+/* 102*/ 	QUEUE* OutputQueue = createQueue();
+/* 103*/ 
+/* 104*/ 
+/* 105*/ 	do{
+/* 106*/ 	switch(menu())
+/* 107*/ 	{
+/* 108*/ 	case 1:
+/* 109*/ 		printf("What value do you want to insert: ");
+/* 110*/ 		scanf("%d",&num);
+/* 111*/ 		pushStack(InputStack,(int*)num);
+/* 112*/ 		enqueue(InputQueue,(int*)num);
+/* 113*/ 		break;
+/* 114*/ 	case 2:
+/* 115*/ 		if(emptyStack(InputStack) == false)
+/* 116*/ 		{
+/* 117*/ 			popStack(InputStack,(void**)&tmp1);
+/* 118*/ 			dequeue(InputQueue,(void**)&tmp2);
+/* 119*/ 			pushStack(OutputStack,(int*)tmp2);
+/* 120*/ 			enqueue(OutputQueue,(int*)tmp1);
+/* 121*/ 			printf("what was moves:%2d, %2d\n",tmp1,tmp2);
+/* 122*/ 		}
+/* 123*/ 		else
+/* 124*/ 		{
+/* 125*/ 			printf("\nOutput Stack: ");
+/* 126*/ 			while(emptyStack(OutputStack) == false)
+/* 127*/ 			{
+/* 128*/ 				popStack(OutputStack,(void**)&tmp1);
+/* 129*/ 				printf("%2d ",tmp1);
+/* 130*/ 			}
+/* 131*/ 			printf("\nOutput Queue: ");
+/* 132*/ 			while(emptyQueue(OutputQueue) == false)
+/* 133*/ 			{
+/* 134*/ 				dequeue(OutputQueue,(void**)&tmp2);
+/* 135*/ 				printf("%2d ",tmp2);
+/* 136*/ 			}
+/* 137*/ 			printf("\n");
+/* 138*/ 
+/* 139*/ 			//empty out each stack and queue
+/* 140*/ 			destroyStack(InputStack);
+/* 141*/ 			destroyStack(OutputStack);
+/* 142*/ 			destroyQueue(InputQueue);
+/* 143*/ 			destroyQueue(OutputQueue);
+/* 144*/ 
+/* 145*/ 			//set end to true so it will close the program
+/* 146*/ 			return 0;
+/* 147*/ 		}
+/* 148*/ 		break;
+/* 149*/ 	}
+/* 150*/ 	} while(end == false);
+/* 151*/ 	return 0;
+/* 152*/ }
+/* 153*/ 
+/* 154*/ 
+/* 155*/ //the main menu function
+/* 156*/ int menu(void)
+/* 157*/ {
+/* 158*/ 	//define the pick variable that will return to the main program
+/* 159*/ 	int pick;
+/* 160*/ 
+/* 161*/ 	//prints out to the terminal the main menu for the program
+/* 162*/ 	printf("\n");
+/* 163*/ 	printf("|-------------------------------------------------------------|\n");
+/* 164*/ 	printf("|        welcome to Lab 7: stack and queue test driver        |\n");
+/* 165*/ 	printf("|         Please select what operation you want to do         |\n");
+/* 166*/ 	printf("|-----|-------------------------------------------------------|\n");
+/* 167*/ 	printf("|   1 |  Input                                                |\n");
+/* 168*/ 	printf("|   2 |  Delete                                               |\n");
+/* 169*/ 	printf("|_____|_______________________________________________________|\n\n");
+/* 170*/ 
+/* 171*/ 	//this do while loop will constanly go untill you type the write number
+/* 172*/ 	do{
+/* 173*/ 		printf("Please select the action you want to do:");
+/* 174*/ 		scanf("%d",&pick);
+/* 175*/ 		if (pick != 1 && pick != 2)
+/* 176*/ 		{
+/* 177*/ 			printf("|========================================|\n");
+/* 178*/ 			printf("|  you missed type, please try again :D  |\n");
+/* 179*/ 			printf("|========================================|\n");
+/* 180*/ 		}
+/* 181*/ 	}while (pick != 1 && pick != 2);
+/* 182*/ 
+/* 183*/ 	return pick;
+/* 184*/ }
+/* 185*/ 
+/* 186*/ 
+/* 187*/ 
+/* 188*/ //this will create a stack
+/* 189*/ STACK* createStack (void)
+/* 190*/ {
+/* 191*/ //declair temp stack
+/* 192*/ 	STACK* stack;
+/* 193*/ 
+/* 194*/ //set the stack with memmory allocated towards it
+/* 195*/ 	stack = (STACK*) malloc( sizeof (STACK));
+/* 196*/ 
+/* 197*/ 	//check if there is a valid place for the stack since malloc could get a full memory problem
+/* 198*/ 	if (stack)
+/* 199*/ 	   {
+/* 200*/ 	        //set the count of the stack to 0
+/* 201*/             stack->count = 0;
+/* 202*/ 
+/* 203*/             //set the top stack pointer to NULL since there is nothing it should point to
+/* 204*/             stack->top   = NULL;
+/* 205*/ 	   }
+/* 206*/ 
+/* 207*/ 	   //return stack to the main program
+/* 208*/         return stack;
+/* 209*/ }
+/* 210*/ 
+/* 211*/ //this will add a new item to the stack
+/* 212*/ bool pushStack (STACK* stack, void* dataInPtr)
+/* 213*/ {
+/* 214*/     //declair a new pointer node for the stack
+/* 215*/ 	STACK_NODE* NewNode;
+/* 216*/ 
+/* 217*/     //sets the new nod
+/* 218*/ 	NewNode = (STACK_NODE*)malloc(sizeof(STACK_NODE));
+/* 219*/ 
+/* 220*/     //if there is no new node since memory full, it will close the program
+/* 221*/ 	if (!NewNode)
+/* 222*/ 	    return 0;
+/* 223*/ 
+/* 224*/ 	//set the data pointer from the iput given
+/* 225*/ 	NewNode->dataPtr = dataInPtr;
+/* 226*/ 
+/* 227*/ 	//set the data pointer to the previous top item
+/* 228*/ 	NewNode->link    = stack->top;
+/* 229*/ 
+/* 230*/ 	//set the stack top to the new node
+/* 231*/ 	stack->top      = NewNode;
+/* 232*/ 
+/* 233*/ 	//add one to the current stack
+/* 234*/ 	(stack->count)++;
+/* 235*/ 	return 1;
+/* 236*/ }
+/* 237*/ 
+/* 238*/ //this will remove the top item from the stack
+/* 239*/ bool popStack (STACK* stack, void** dataOutPtr)
+/* 240*/ {
+/* 241*/ //Definitions
+/* 242*/ 	STACK_NODE* temp;
+/* 243*/ 
+/* 244*/ 	//checks if count is zer, if it is true then the pointer to the data will be null
+/* 245*/ 	if (stack->count == 0)
+/* 246*/ 	    dataOutPtr = NULL;
+/* 247*/ 	else
+/* 248*/ 	   {
+/* 249*/             //sets a temp node to the top node
+/* 250*/             temp       = stack->top;
+/* 251*/ 
+/* 252*/             //grabs the data from the top node
+/* 253*/             *dataOutPtr = stack->top->dataPtr;
+/* 254*/ 
+/* 255*/             //set the stack top to the topnode link so it points the the next nodes under the top node
+/* 256*/             stack->top = stack->top->link;
+/* 257*/ 
+/* 258*/             //free up some memory by removing the top node
+/* 259*/             free (temp);
+/* 260*/ 
+/* 261*/             //decrese the stack count by 1
+/* 262*/             (stack->count)--;
+/* 263*/ 	   }
+/* 264*/ 
+/* 265*/ 	   //returns the value that was previous in the top node data
+/* 266*/         return true;
+/* 267*/ }
+/* 268*/ 
+/* 269*/ //checks if the stack is empty
+/* 270*/ bool emptyStack (STACK* stack)
+/* 271*/ {
+/* 272*/     //check if stack count is zero, if true then it will output true etc.
+/* 273*/ 	return (stack->count == 0);
+/* 274*/ }
+/* 275*/ 
+/* 276*/ //destory a stack in the program
+/* 277*/ STACK* destroyStack (STACK* stack)
+/* 278*/ {
+/* 279*/ //definition
+/* 280*/ 	STACK_NODE* temp;
+/* 281*/ 
+/* 282*/     //checks to see if there is a actual stack
+/* 283*/ 	if (stack)
+/* 284*/ 	   {
+/* 285*/             // Delete all nodes in stack
+/* 286*/             while (stack->top != NULL)
+/* 287*/             {
+/* 288*/ 
+/* 289*/                 // Delete data entry
+/* 290*/                 free (stack->top->dataPtr);
+/* 291*/ 
+/* 292*/                 //sets the temp node to the stack top pointer so i can point to the node it wants to delete
+/* 293*/                 temp = stack->top;
+/* 294*/ 
+/* 295*/                 //sets the stack top to the top node link, so it points to the previous node in the stack
+/* 296*/                 stack->top = stack->top->link;
+/* 297*/ 
+/* 298*/                 //frees up the old node memory by free the temp which links to the old node that was on top
+/* 299*/                 free (temp);
+/* 300*/             }
+/* 301*/ 
+/* 302*/ 	    // Stack now empty. Destroy stack head node.
+/* 303*/ 	    free (stack);
+/* 304*/         }
+/* 305*/ 
+/* 306*/         //returns a null value since there should not be a return value, just a null
+/* 307*/         return NULL;
+/* 308*/ }
+/* 309*/ 
+/* 310*/ 
+/* 311*/ /*
+/* 312*/ This is all the functions for queue
+/* 313*/ */
+/* 314*/ 
+/* 315*/ //This will create a queue
+/* 316*/ QUEUE* createQueue (void)
+/* 317*/ {
+/* 318*/ //definition
+/* 319*/ 	QUEUE* queue;
+/* 320*/ 
+/* 321*/ 	queue = (QUEUE*) malloc (sizeof (QUEUE));
+/* 322*/ 	if (queue)
+/* 323*/ 	   {
+/* 324*/ 	    queue->front  = NULL;
+/* 325*/ 	    queue->rear   = NULL;
+/* 326*/ 	    queue->count  = 0;
+/* 327*/ 	   }
+/* 328*/ 	return queue;
+/* 329*/ }
+/* 330*/ 
+/* 331*/ //This will insert data in the queue
+/* 332*/ bool enqueue (QUEUE* queue, void* itemPtr)
+/* 333*/ {
+/* 334*/ //definitions
+/* 335*/ 	QUEUE_NODE* newPtr;
+/* 336*/ 
+/* 337*/ 	if (!(newPtr = 
+/* 338*/ 	   (QUEUE_NODE*)malloc(sizeof(QUEUE_NODE))))
+/* 339*/ 	   return false;
+/* 340*/ 
+/* 341*/ 	newPtr->dataPtr = itemPtr; 
+/* 342*/ 	newPtr->next    = NULL; 
+/* 343*/ 	 
+/* 344*/ 	if (queue->count == 0)
+/* 345*/ 	   queue->front  = newPtr;
+/* 346*/ 	else
+/* 347*/ 	   queue->rear->next = newPtr; 
+/* 348*/ 
+/* 349*/ 	(queue->count)++;
+/* 350*/ 	queue->rear = newPtr;
+/* 351*/ 	return true;
+/* 352*/ }
+/* 353*/ 
+/* 354*/ //This will remove data in the queue
+/* 355*/ bool dequeue (QUEUE* queue,	void** itemPtr) 
+/* 356*/ {
+/* 357*/ //Definitions
+/* 358*/ 	QUEUE_NODE* deleteLoc;
+/* 359*/ 
+/* 360*/ 	if (!queue->count)
+/* 361*/ 	    return false;
+/* 362*/ 	 
+/* 363*/ 	*itemPtr  = queue->front->dataPtr;
+/* 364*/ 	deleteLoc = queue->front;
+/* 365*/ 	if (queue->count == 1)
+/* 366*/ 	   queue->rear  = queue->front = NULL;
+/* 367*/ 	else
+/* 368*/ 	   queue->front = queue->front->next;
+/* 369*/ 	(queue->count)--;
+/* 370*/ 	free (deleteLoc);
+/* 371*/ 
+/* 372*/ 	return true;
+/* 373*/ }
+/* 374*/ 
+/* 375*/ //This will Destory a queue
+/* 376*/ QUEUE* destroyQueue (QUEUE* queue) 
+/* 377*/ {
+/* 378*/ //	Local Definitions 
+/* 379*/ 	QUEUE_NODE* deletePtr;
+/* 380*/ 
+/* 381*/ //	Statements 
+/* 382*/ 	if (queue)
+/* 383*/ 	   {
+/* 384*/ 	    while (queue->front != NULL) 
+/* 385*/ 	       {
+/* 386*/ 	        free (queue->front->dataPtr);
+/* 387*/ 	        deletePtr    = queue->front;
+/* 388*/ 	        queue->front = queue->front->next; 
+/* 389*/ 	        free (deletePtr); 
+/* 390*/ 	       } // while 
+/* 391*/ 	    free (queue);
+/* 392*/ 	   } // if 
+/* 393*/ 	return NULL;
+/* 394*/ }
+/* 395*/ 
+/* 396*/ //this will check if a queue is empty
+/* 397*/ bool emptyQueue (QUEUE* queue) 
+/* 398*/ {
+/* 399*/ 	return (queue->count == 0);
+/* 400*/ }
+ece161lab7.doc
+ece161lab7.docx
+** compiled *********************************************************
+ece161lab7.cpp
+Microsoft (R) Incremental Linker Version 10.00.30319.01
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/out:C:\Users\David\Dropbox\David-Steve\Grading\ece161lab1\lab7\dnoyes.exe 
+ece161lab7.obj 
+
+
+********** console output **********
+
+
+
+** Program terminated because it ran for too long **

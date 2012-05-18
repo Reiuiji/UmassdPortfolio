@@ -1,0 +1,185 @@
+**********************************************************************
+Name: Daniel Noyes
+Prog: LAB 3
+grad: 90
+user: dnoyes
+Due: 2/24/2012 11:59:59 PM
+Graded: 3/2/2012 4:04:52 PM
+ece161lab3.cpp Submitted: 2/17/2012 6:19:44 PM
+Comments: none
+ece161lab3.cpp
+** start file ********************************************************
+/*   1*/ /* ECE161lab3 project 
+/*   2*/ I, Daniel Noyes, certify that this is my own work and I have not collaborated with anyone else.
+/*   3*/ I encourage the use of this program as OPEN SOURCE.
+/*   4*/ 
+/*   5*/ This Lab recieves data from a txt document for name, midterm, and final for a student
+/*   6*/ Then it will print to the screen and sort it to a txt file
+/*   7*/ */
+/*   8*/ 
+/*   9*/ //stops the secure warnings
+/*  10*/ #define _CRT_SECURE_NO_WARNINGS
+/*  11*/ 
+/*  12*/ //grabs the standard input output libraries
+/*  13*/ #include <stdio.h>
+/*  14*/ 
+/*  15*/ //grabs the standard library
+/*  16*/ #include <stdlib.h>
+/*  17*/ 
+/*  18*/ //grabs the string library 
+/*  19*/ #include <string.h>
+/*  20*/ 
+/*  21*/ //set the max students for the program
+/*  22*/ #define MAXSTU 50
+/*  23*/ 
+/*  24*/ 
+/*  25*/ //test Global Declarations for real :D
+/*  26*/ typedef struct
+/*  27*/ {
+/*  28*/ 	char name[26];
+/*  29*/ 	int midterm[3];
+/*  30*/ 	int final;
+/*  31*/ } STUDENT ;
+/*  32*/ 
+/*  33*/ //set a sorting array for names
+/*  34*/ void Name_Sort (STUDENT names[],int array_lim);
+/*  35*/ int main()
+/*  36*/ {
+/*  37*/ 	//time to go crazy with comments XD
+/*  38*/ 	//test local Definitions
+/*  39*/ 	STUDENT student[MAXSTU];
+/*  40*/ 	int ARRAY_LIM=0,i;
+/*  41*/ 
+/*  42*/ 	//set the variable for input and output file
+/*  43*/ 	FILE *DATA, *OUT;
+/*  44*/ 
+/*  45*/ 	//set the input file and check to see if it is there (student_data.txt)
+/*  46*/ 	if ((DATA=fopen("student_data.txt","rt")) == NULL)
+/*  47*/ 	{
+/*  48*/ 
+/*  49*/ 		//display student_data.txt not found
+/*  50*/ 		printf("Sorry Could not find the File\nIt might have ran away from you!\nmake sure it is in the same directory as me(Program)");
+/*  51*/ 
+/*  52*/ 		//exit the program with a "EXIT_FAILURE"
+/*  53*/ 		exit(0);
+/*  54*/ 	}
+/*  55*/ 
+/*  56*/ 	//sets the output file and check to see if it is there (sorted_data.txt)
+/*  57*/ 	if ( (OUT=fopen("sorted_data.txt", "wt")) == NULL)
+/*  58*/ 	{
+/*  59*/ 
+/*  60*/ 		//display sorted_data file not found
+/*  61*/ 		printf("Sorry Could not find the File\nPlease Try puting the file in the same Directory as this Program");
+/*  62*/ 
+/*  63*/ 		//exit the program  with a "EXIT_FAILURE"
+/*  64*/ 		exit(2);
+/*  65*/ 	}
+/*  66*/ 
+/*  67*/ 	//grabs the information from the file student_data.txt
+/*  68*/ 
+/*  69*/ 	//print to the terminal
+/*  70*/ 	printf("_________________________________________________________________________\n");
+/*  71*/ 	printf("| Student Names              | midterm 1 | midterm 2 | midterm 3 | Final |\n");
+/*  72*/ 	printf("|----------------------------|-----------|-----------|-----------|-------|\n");
+/*  73*/ 	while(fscanf(DATA,"%s %d %d %d %d",student[ARRAY_LIM].name,&student[ARRAY_LIM].midterm[0],&student[ARRAY_LIM].midterm[1],&student[ARRAY_LIM].midterm[2],&student[ARRAY_LIM].final) == 5)
+/*  74*/ 	{
+/*  75*/ 		printf("| %-26s |    %3d    |    %3d    |    %3d    |  %3d  |\n",student[ARRAY_LIM].name,student[ARRAY_LIM].midterm[0],student[ARRAY_LIM].midterm[1],student[ARRAY_LIM].midterm[2],student[ARRAY_LIM].final);
+/*  76*/ 		ARRAY_LIM++;
+/*  77*/ 	}
+/*  78*/ 	printf("|____________________________|___________|___________|___________|_______|\n");
+/*  79*/ 
+/*  80*/ 	//finish grabing from student_data
+/*  81*/ 	fflush(DATA);
+/*  82*/ 
+/*  83*/ 	//sets up a sort program to sort the name of each student
+/*  84*/ 
+/*  85*/ 	Name_Sort (student,ARRAY_LIM);
+/*  86*/ 
+/*  87*/ 	//prints out to a text document (sorted_data.txt)
+/*  88*/ 	fprintf(OUT,"_________________________________________________________________________\n");
+/*  89*/ 	fprintf(OUT,"| Student Names              | midterm 1 | midterm 2 | midterm 3 | Final |\n");
+/*  90*/ 	fprintf(OUT,"|----------------------------|-----------|-----------|-----------|-------|\n");
+/*  91*/ 
+/*  92*/ 	//print out each student name, midterm, final
+/*  93*/ 	for(i=0;i<ARRAY_LIM;i++)
+/*  94*/ 	{
+/*  95*/ 		fprintf(OUT,"| %-26s |    %3d    |    %3d    |    %3d    |  %3d  |\n",student[i].name,student[i].midterm[0],student[i].midterm[1],student[i].midterm[2],student[i].final);
+/*  96*/ 	}
+/*  97*/ 	fprintf(OUT,"|____________________________|___________|___________|___________|_______|\n");
+/*  98*/ 
+/*  99*/ 	//end of printing to file
+/* 100*/ 	fflush(OUT);
+/* 101*/ 
+/* 102*/ 	return 0;
+/* 103*/ 
+/* 104*/ 	//return with interger type data, return without error
+/* 105*/ 	//end of program :D
+/* 106*/ 
+/* 107*/ }
+/* 108*/ 
+/* 109*/ //sorting array for the names on a structure
+/* 110*/ void Name_Sort (STUDENT names[],int array_lim)
+/* 111*/ {
+/* 112*/ 
+/* 113*/ 	int i,j;
+/* 114*/ 	STUDENT tmpname;
+/* 115*/ 
+/* 116*/ 	for(i=array_lim-1;i>=0;i--)
+/* 117*/ 	{
+/* 118*/ 		for(j=1;j<=i;j++)
+/* 119*/ 		{
+/* 120*/ 			if (strcmp(names[j-1].name,names[j].name) > 0)
+/* 121*/ 			{
+/* 122*/ 				tmpname = names[j-1];
+/* 123*/ 				names[j-1]=names[j];
+/* 124*/ 				names[j]=tmpname;
+/* 125*/ 			}
+/* 126*/ 		}
+/* 127*/ 	}
+/* 128*/ }
+** compiled *********************************************************
+ece161lab3.cpp
+Microsoft (R) Incremental Linker Version 10.00.30319.01
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+"/out:C:\Users\David\Dropbox\David-Steve\Grading\ece161lab1\LAB 3\dnoyes.exe" 
+ece161lab3.obj 
+
+
+********** console output **********
+_________________________________________________________________________
+| Student Names              | midterm 1 | midterm 2 | midterm 3 | Final |
+|----------------------------|-----------|-----------|-----------|-------|
+| Richards,Scott             |     67    |     74    |     77    |   87  |
+| Brito,Alexander            |     78    |     82    |     95    |   98  |
+| Dorian,Bret                |     84    |     81    |     90    |   92  |
+| Jefferson,Manuel           |     52    |     64    |     77    |   79  |
+| Kelsey,Anne                |     81    |     77    |     84    |   80  |
+| Leblanc,Wayne              |     70    |     71    |     70    |   76  |
+| Couto,Bret                 |     67    |     77    |     84    |   88  |
+| Teves,Louis                |     77    |     78    |     89    |   96  |
+| Hajjar,Ives                |     87    |     92    |     95    |   90  |
+| Fernandes,Joseph           |     57    |     65    |     76    |   80  |
+| Vincent,Jean               |     67    |     65    |     94    |   90  |
+| Gomes,Marie                |     61    |     71    |     75    |   78  |
+|____________________________|___________|___________|___________|_______|
+
+
+********** File sorted_data.txt **********
+_________________________________________________________________________
+| Student Names              | midterm 1 | midterm 2 | midterm 3 | Final |
+|----------------------------|-----------|-----------|-----------|-------|
+| Brito,Alexander            |     78    |     82    |     95    |   98  |
+| Couto,Bret                 |     67    |     77    |     84    |   88  |
+| Dorian,Bret                |     84    |     81    |     90    |   92  |
+| Fernandes,Joseph           |     57    |     65    |     76    |   80  |
+| Gomes,Marie                |     61    |     71    |     75    |   78  |
+| Hajjar,Ives                |     87    |     92    |     95    |   90  |
+| Jefferson,Manuel           |     52    |     64    |     77    |   79  |
+| Kelsey,Anne                |     81    |     77    |     84    |   80  |
+| Leblanc,Wayne              |     70    |     71    |     70    |   76  |
+| Richards,Scott             |     67    |     74    |     77    |   87  |
+| Teves,Louis                |     77    |     78    |     89    |   96  |
+| Vincent,Jean               |     67    |     65    |     94    |   90  |
+|____________________________|___________|___________|___________|_______|
+

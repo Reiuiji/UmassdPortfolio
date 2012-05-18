@@ -1,0 +1,739 @@
+**********************************************************************
+Name: Daniel Noyes
+Prog: Lab9
+grad: 100
+user: dnoyes
+Due: 5/11/2012 11:59:59 PM
+Graded: 5/17/2012 1:53:48 PM
+ece161lab9.cpp Submitted: 5/11/2012 5:49:18 PM
+Comments: None
+ece161lab9.cpp
+** start file ********************************************************
+/*   1*/ /* ECE161lab9 project
+/*   2*/ I, Daniel Noyes, certify that this is my own work and I have not collaborated with anyone else.
+/*   3*/ I encourage the use of this program as OPEN SOURCE.
+/*   4*/ 
+/*   5*/ most of the code was originated from bst2.cpp which was posted on costa's class lecture notes, BST functions
+/*   6*/ */
+/*   7*/ 
+/*   8*/ //stops the secure warnings
+/*   9*/ #define _CRT_SECURE_NO_WARNINGS
+/*  10*/ 
+/*  11*/ //grabs the standard input output libraries
+/*  12*/ #include <stdio.h>
+/*  13*/ 
+/*  14*/ //grabs the standard library
+/*  15*/ #include <stdlib.h>
+/*  16*/ 
+/*  17*/ //grabs the string library
+/*  18*/ #include <string.h>
+/*  19*/ 
+/*  20*/ //grabs the ctype library
+/*  21*/ #include <ctype.h>
+/*  22*/ 
+/*  23*/ //Structure Declarations
+/*  24*/ //structure that will hold the customers data
+/*  25*/ typedef struct customers
+/*  26*/ {
+/*  27*/     char names[40];
+/*  28*/     char phonenumbers[20];
+/*  29*/ } CUSTOMERS;
+/*  30*/ 
+/*  31*/ //structure that holds the BST node
+/*  32*/ typedef struct node
+/*  33*/ {
+/*  34*/     void*           dataPtr;
+/*  35*/     struct node*    left;
+/*  36*/     struct node*    right;
+/*  37*/ } NODE;
+/*  38*/ 
+/*  39*/ //structure that holds the bst head that points to root
+/*  40*/ typedef struct bst_tree
+/*  41*/ {
+/*  42*/     int     count;
+/*  43*/     int (*compare) (void* argu1, void* argu2);
+/*  44*/     NODE* root;
+/*  45*/ } BST_TREE;
+/*  46*/ 
+/*  47*/ //prototype Declarations
+/*  48*/ 
+/*  49*/     //Create a Binary Search Tree
+/*  50*/     BST_TREE* BST_Create (int (*compare) (void* argu1, void* argu2));
+/*  51*/ 
+/*  52*/     //Destroy a Binary Search Tree
+/*  53*/     BST_TREE* BST_Destroy (BST_TREE* tree);
+/*  54*/ 
+/*  55*/     //insert function for a Binary Search Tree
+/*  56*/ 	bool  BST_Insert   (BST_TREE* tree, void* dataPtr);
+/*  57*/ 
+/*  58*/ 	//Delete function for a Binary Search Tree
+/*  59*/ 	bool  BST_Delete   (BST_TREE* tree, void* dltKey);
+/*  60*/ 
+/*  61*/ 	//retrieve function for a Binary Search Tree
+/*  62*/ 	void* BST_Retrieve (BST_TREE* tree, void* keyPtr);
+/*  63*/ 
+/*  64*/ 	//traverse function for a Binary Search Tree
+/*  65*/ 	void  BST_Traverse (BST_TREE* tree, void (*process)(void* dataPtr));
+/*  66*/ 
+/*  67*/ 	//check if a BST is empty
+/*  68*/ 	bool BST_Empty (BST_TREE* tree);
+/*  69*/ 
+/*  70*/ 	//check if a BST is full
+/*  71*/ 	bool BST_Full  (BST_TREE* tree);
+/*  72*/ 
+/*  73*/ 	//return the count value from a BST tree
+/*  74*/ 	int  BST_Count (BST_TREE* tree);
+/*  75*/ 
+/*  76*/     //function to insert
+/*  77*/ 	static NODE* _insert (BST_TREE* tree, NODE* root, NODE* newPtr);
+/*  78*/ 
+/*  79*/ 	//function to delete
+/*  80*/ 	static NODE* _delete (BST_TREE* tree, NODE* root, void* dataPtr, bool* success);
+/*  81*/ 
+/*  82*/ 	//retrieve a node for a requestied value
+/*  83*/ 	static void* _retrieve (BST_TREE* tree, void* dataPtr, NODE* root);
+/*  84*/ 
+/*  85*/ 	//function that goes through a BST tree in order
+/*  86*/ 	static void _traverse (NODE* root, void (*process) (void* dataPtr));
+/*  87*/ 
+/*  88*/ 	//deletes all data in tree
+/*  89*/ 	static void _destroy (NODE* root);
+/*  90*/ 
+/*  91*/     //prototypes for main functions
+/*  92*/     //	Prototype Declarations
+/*  93*/     //menu for the program
+/*  94*/     char Options    (void);
+/*  95*/ 
+/*  96*/     //add a customer to the tree
+/*  97*/     void addCust       (BST_TREE* list);
+/*  98*/ 
+/*  99*/     //delete a customer to the tree
+/* 100*/     void deleteCust    (BST_TREE* list);
+/* 101*/ 
+/* 102*/     //find a customer in a tree
+/* 103*/     void findCust      (BST_TREE* list);
+/* 104*/ 
+/* 105*/     //print the list of customers in a tree
+/* 106*/     void printList    (BST_TREE* list);
+/* 107*/ 
+/* 108*/     //test the applications
+/* 109*/     void testUtilties (BST_TREE* tree);
+/* 110*/ 
+/* 111*/     //compare each customer number
+/* 112*/     int  compareCust   (void* Cust1, void* Cust2);
+/* 113*/ 
+/* 114*/     //prints one customers data
+/* 115*/     void processCust   (void* dataPtr);
+/* 116*/ 
+/* 117*/ 	//auto add list from a file
+/* 118*/ 	void addfromlist (BST_TREE* list, FILE *file_list);
+/* 119*/ 
+/* 120*/ //main function
+/* 121*/ int main()
+/* 122*/ {
+/* 123*/ 	//set the list variable which will point to the binary search tree
+/* 124*/     BST_TREE* list;
+/* 125*/ 
+/* 126*/ 	//set selection for the menu to a ' '(blank)
+/* 127*/     char    selection = ' ';
+/* 128*/ 
+/* 129*/ 	//points to a file to grab data
+/* 130*/ 	FILE *DATA;
+/* 131*/ 
+/* 132*/ 	//create the Binary search tree
+/* 133*/ 	list = BST_Create (compareCust);
+/* 134*/ 
+/* 135*/ 	//check if there is data in the lab9 file
+/* 136*/ 	if ((DATA=fopen("lab9_file.txt","rt")) == NULL)
+/* 137*/ 	{
+/* 138*/ 		//display input file not found
+/* 139*/ 		printf("Sorry Could not find the File\nIt might have ran away from you!\nmake sure it is in the same directory as me(Program)\n");
+/* 140*/ 		printf("I am going to skip the inputing from a file");
+/* 141*/ 	}
+/* 142*/ 	//if the file is there, it will grab the data from the file
+/* 143*/ 	else
+/* 144*/ 		addfromlist(list, DATA);
+/* 145*/ 
+/* 146*/ 	//menu selection
+/* 147*/     while ((selection = Options()) != 'Q')
+/* 148*/     {
+/* 149*/         switch(selection)
+/* 150*/         {
+/* 151*/             //goes to adding a customer
+/* 152*/             case 'A':   addCust(list);
+/* 153*/                         break;
+/* 154*/             //goes to deleting a customer
+/* 155*/             case 'D':   deleteCust(list);
+/* 156*/                         break;
+/* 157*/             //goes to finding a customer
+/* 158*/             case 'F':   findCust(list);
+/* 159*/                         break;
+/* 160*/             //prints customer list
+/* 161*/             case 'P':   printList(list);
+/* 162*/                         break;
+/* 163*/             //test the application
+/* 164*/             case 'U':   testUtilties(list);
+/* 165*/                         break;
+/* 166*/         }
+/* 167*/     }
+/* 168*/     //closes the application and clears the BST tree
+/* 169*/     list = BST_Destroy (list);
+/* 170*/     return 0;
+/* 171*/ }
+/* 172*/ 
+/* 173*/ //create a Binary search tree function
+/* 174*/ BST_TREE* BST_Create (int  (*compare) (void* argu1, void* argu2))
+/* 175*/ {
+/* 176*/     //local Definition
+/* 177*/ 	BST_TREE* tree;
+/* 178*/ 
+/* 179*/     //allocates memory for the tree
+/* 180*/ 	tree = (BST_TREE*) malloc (sizeof (BST_TREE));
+/* 181*/ 	if (tree)
+/* 182*/ 	   {
+/* 183*/         //set the tree to point to null with 0 for count
+/* 184*/ 	    tree->root    = NULL;
+/* 185*/ 	    tree->count   = 0;
+/* 186*/ 	    tree->compare = compare;
+/* 187*/ 	   }
+/* 188*/ 
+/* 189*/ 	return tree;
+/* 190*/ }
+/* 191*/ 
+/* 192*/ //Inserts a node into the tree
+/* 193*/ bool BST_Insert (BST_TREE* tree, void* dataPtr)
+/* 194*/ {
+/* 195*/ 	NODE* newPtr;
+/* 196*/ 
+/* 197*/ 	newPtr = (NODE*)malloc(sizeof(NODE));
+/* 198*/ 	if (!newPtr)
+/* 199*/ 	   return false;
+/* 200*/ 
+/* 201*/ 	newPtr->right   = NULL;
+/* 202*/ 	newPtr->left    = NULL;
+/* 203*/ 	newPtr->dataPtr = dataPtr;
+/* 204*/ 
+/* 205*/ 	if (tree->count == 0)
+/* 206*/ 	    tree->root  =  newPtr;
+/* 207*/ 	else
+/* 208*/ 	    _insert(tree, tree->root, newPtr);
+/* 209*/ 
+/* 210*/ 	(tree->count)++;
+/* 211*/ 	return true;
+/* 212*/ }
+/* 213*/ 
+/* 214*/ //insert a new node in the tree, recursive function
+/* 215*/ NODE* _insert (BST_TREE* tree, NODE* root, NODE* newPtr)
+/* 216*/ {
+/* 217*/ 	if (!root)
+/* 218*/ 	   return newPtr;
+/* 219*/ 
+/* 220*/ 	// Locate null subtree for insertion
+/* 221*/ 	if (tree->compare(newPtr->dataPtr,
+/* 222*/ 	                  root->dataPtr) < 0)
+/* 223*/ 	   {
+/* 224*/ 	    root->left = _insert(tree, root->left, newPtr);
+/* 225*/ 	    return root;
+/* 226*/ 	   } // new < node
+/* 227*/ 	else
+/* 228*/ 	   // new data >= root data
+/* 229*/ 	   {
+/* 230*/ 	    root->right = _insert(tree, root->right, newPtr);
+/* 231*/ 	    return root;
+/* 232*/ 	     } // else new data >= root data
+/* 233*/ 	return root;
+/* 234*/ }	// _insert
+/* 235*/ 
+/* 236*/ //Delete a specific node in a tree
+/* 237*/ bool BST_Delete (BST_TREE* tree, void* dltKey)
+/* 238*/ {
+/* 239*/ //	Local Definitions
+/* 240*/ 	bool  success;
+/* 241*/ 	NODE* newRoot;
+/* 242*/ 
+/* 243*/ //	Statements
+/* 244*/ 	newRoot = _delete (tree, tree->root, dltKey, &success);
+/* 245*/ 	if (success)
+/* 246*/ 	   {
+/* 247*/ 	    tree->root = newRoot;
+/* 248*/ 	    (tree->count)--;
+/* 249*/ 	    if (tree->count == 0)
+/* 250*/ 	        // Tree now empty
+/* 251*/ 	        tree->root = NULL;
+/* 252*/ 	   } // if
+/* 253*/ 	return success;
+/* 254*/ }  // BST_Delete
+/* 255*/ 
+/* 256*/ //BST delete recursive function
+/* 257*/ NODE*  _delete (BST_TREE* tree, NODE* root, void* dataPtr, bool* success)
+/* 258*/ {
+/* 259*/ // Local Definitions
+/* 260*/ 	NODE* dltPtr;
+/* 261*/ 	NODE* exchPtr;
+/* 262*/ 	NODE* newRoot;
+/* 263*/ 	void* holdPtr;
+/* 264*/ 
+/* 265*/ //	Statements
+/* 266*/ 	if (!root)
+/* 267*/ 	   {
+/* 268*/ 	    *success = false;
+/* 269*/ 	    return NULL;
+/* 270*/ 	   } // if
+/* 271*/ 
+/* 272*/ 	if (tree->compare(dataPtr, root->dataPtr) < 0)
+/* 273*/ 	     root->left  = _delete (tree,    root->left,
+/* 274*/ 	                            dataPtr, success);
+/* 275*/ 	else if (tree->compare(dataPtr, root->dataPtr) > 0)
+/* 276*/ 	     root->right = _delete (tree,    root->right,
+/* 277*/ 	                            dataPtr, success);
+/* 278*/ 	else
+/* 279*/ 	    // Delete node found--test for leaf node
+/* 280*/ 	    {
+/* 281*/ 	     dltPtr = root;
+/* 282*/ 	     if (!root->left)
+/* 283*/ 	         // No left subtree
+/* 284*/ 	         {
+/* 285*/ 	          free (root->dataPtr);       // data memory
+/* 286*/ 	          newRoot = root->right;
+/* 287*/ 	          free (dltPtr);              // BST Node
+/* 288*/ 	          *success = true;
+/* 289*/ 	          return newRoot;             // base case
+/* 290*/ 	         } // if true
+/* 291*/ 	     else
+/* 292*/ 	         if (!root->right)
+/* 293*/ 	             // Only left subtree
+/* 294*/ 	             {
+/* 295*/ 	              newRoot = root->left;
+/* 296*/ 	              free (dltPtr);
+/* 297*/ 	              *success = true;
+/* 298*/ 	              return newRoot;         // base case
+/* 299*/ 	            } // if
+/* 300*/ 	         else
+/* 301*/ 	             // Delete Node has two subtrees
+/* 302*/ 	             {
+/* 303*/ 	              exchPtr = root->left;
+/* 304*/ 	              // Find largest node on left subtree
+/* 305*/ 	              while (exchPtr->right)
+/* 306*/ 	                  exchPtr = exchPtr->right;
+/* 307*/ 
+/* 308*/ 	              // Exchange Data
+/* 309*/ 	              holdPtr          = root->dataPtr;
+/* 310*/ 	              root->dataPtr    = exchPtr->dataPtr;
+/* 311*/ 	              exchPtr->dataPtr = holdPtr;
+/* 312*/ 	              root->left       =
+/* 313*/ 	                 _delete (tree,   root->left,
+/* 314*/ 	                          exchPtr->dataPtr, success);
+/* 315*/ 	             } // else
+/* 316*/ 	    } // node found
+/* 317*/ 	return root;
+/* 318*/ }	// _delete
+/* 319*/ 
+/* 320*/ //searches tree for a specific node
+/* 321*/ void* BST_Retrieve  (BST_TREE* tree, void* keyPtr)
+/* 322*/ {
+/* 323*/ 	//check if there is a BST
+/* 324*/ 	if (tree->root)
+/* 325*/ 		//goes into the retrieve function
+/* 326*/ 	    return _retrieve (tree, keyPtr, tree->root);
+/* 327*/ 	else
+/* 328*/ 	    return NULL;
+/* 329*/ }
+/* 330*/ 
+/* 331*/ //searches tree for a specific node recusive function
+/* 332*/ void* _retrieve (BST_TREE* tree, void* dataPtr, NODE* root)
+/* 333*/ {
+/* 334*/ 	//check if there is a root
+/* 335*/ 	if (root)
+/* 336*/ 	    {
+/* 337*/ 			//goes through the list recursively
+/* 338*/ 			if (tree->compare(dataPtr, root->dataPtr) < 0)
+/* 339*/ 				return _retrieve(tree, dataPtr, root->left);
+/* 340*/ 			else if (tree->compare(dataPtr, root->dataPtr) > 0)
+/* 341*/ 				return _retrieve(tree, dataPtr, root->right);
+/* 342*/ 			else
+/* 343*/ 				// found the node, output the pointer to that specific node
+/* 344*/ 				return root->dataPtr;
+/* 345*/ 	    }
+/* 346*/ 	else
+/* 347*/ 	    //no data in the tree
+/* 348*/ 	    return NULL;
+/* 349*/ }
+/* 350*/ 
+/* 351*/ //process tree using inorder traversal
+/* 352*/ void BST_Traverse (BST_TREE* tree, void (*process) (void* dataPtr))
+/* 353*/ {
+/* 354*/ 	//start the traverse process
+/* 355*/ 	_traverse (tree->root, process);
+/* 356*/ 	return;
+/* 357*/ }
+/* 358*/ 
+/* 359*/ //inorder tree traverse, used from function BST_Traverse
+/* 360*/ void _traverse (NODE* root, void (*process) (void* dataPtr))
+/* 361*/ {
+/* 362*/ 	//check if there is a root/tree
+/* 363*/ 	if  (root)
+/* 364*/ 		{
+/* 365*/ 			//goes through the tree recursively
+/* 366*/ 			_traverse (root->left, process);
+/* 367*/ 			process   (root->dataPtr);
+/* 368*/ 			_traverse (root->right, process);
+/* 369*/ 		}
+/* 370*/ 	return;
+/* 371*/ }
+/* 372*/ 
+/* 373*/ //check if the BST is empty
+/* 374*/ bool BST_Empty (BST_TREE* tree)
+/* 375*/ {
+/* 376*/ 	//check the tree count if there is no nodes
+/* 377*/ 	return (tree->count == 0);
+/* 378*/ }
+/* 379*/ 
+/* 380*/ //check if the BST is full
+/* 381*/ bool BST_Full (BST_TREE* tree)
+/* 382*/ {
+/* 383*/ 	//set a node pointer to the new node
+/* 384*/ 	NODE* newPtr;
+/* 385*/ 
+/* 386*/ 	//set the new node
+/* 387*/ 	newPtr = (NODE*)malloc(sizeof (*(tree->root)));
+/* 388*/ 	//check if creating is success
+/* 389*/ 	if (newPtr)
+/* 390*/ 	   {
+/* 391*/ 		   //true then there is memory to hold a node so clear the tmp node and return false
+/* 392*/ 			free (newPtr);
+/* 393*/ 			return false;
+/* 394*/ 	   }
+/* 395*/ 	else
+/* 396*/ 		//since
+/* 397*/ 	     return true;
+/* 398*/ }
+/* 399*/ 
+/* 400*/ //return number of nodes in the tree
+/* 401*/ int BST_Count (BST_TREE* tree)
+/* 402*/ {
+/* 403*/ 	//return the tree count
+/* 404*/ 	return (tree->count);
+/* 405*/ }
+/* 406*/ 
+/* 407*/ //deletes all data in the tree
+/* 408*/ BST_TREE* BST_Destroy (BST_TREE* tree)
+/* 409*/ {
+/* 410*/ 	//check if there is a BST tree
+/* 411*/ 	if (tree)
+/* 412*/ 		_destroy (tree->root);
+/* 413*/ 
+/* 414*/ 	// free the tree since there is no more nodes
+/* 415*/ 	free (tree);
+/* 416*/ 	return NULL;
+/* 417*/ }
+/* 418*/ 
+/* 419*/ //deletes all data in the tree
+/* 420*/ void _destroy (NODE* root)
+/* 421*/ {
+/* 422*/ 	//check if there is a BST tree
+/* 423*/ 	if (root)
+/* 424*/ 	   {
+/* 425*/ 	    _destroy (root->left);
+/* 426*/ 	    free (root->dataPtr);
+/* 427*/ 	    _destroy (root->right);
+/* 428*/ 	    free (root);
+/* 429*/ 	   }
+/* 430*/ 	return;
+/* 431*/ }
+/* 432*/ 
+/* 433*/ //menu for the program
+/* 434*/ char Options  (void)
+/* 435*/ {
+/* 436*/ 	//set the variable for the menu option
+/* 437*/ 	char option;
+/* 438*/ 
+/* 439*/ 	//set a variable for a error check
+/* 440*/ 	bool error;
+/* 441*/ 
+/* 442*/ 	//prints out to the terminal the main menu for the application
+/* 443*/ 	printf("\n\n");
+/* 444*/ 	printf("+============================================================+\n");
+/* 445*/ 	printf("|          welcome to Lab 9: Project 7.22 from book          |\n");
+/* 446*/ 	printf("|         Please select what operation you want to do        |\n");
+/* 447*/ 	printf("|-----+------------------------------------------------------|\n");
+/* 448*/ 	printf("|  A  |    Add a Customer                                    |\n");
+/* 449*/ 	printf("|  D  |    Delete a Customer                                 |\n");
+/* 450*/ 	printf("|  F  |    Find a Customer                                   |\n");
+/* 451*/ 	printf("|  P  |    Print Phone List                                  |\n");
+/* 452*/ 	printf("|  U  |    Show Utilities                                    |\n");
+/* 453*/ 	printf("+-----+------------------------------------------------------+\n");
+/* 454*/ 	printf("|  Q  |    Quit                                              |\n");
+/* 455*/ 	printf("+=====+======================================================+\n");
+/* 456*/ 
+/* 457*/ 
+/* 458*/ 	do
+/* 459*/ 	   {
+/* 460*/ 
+/* 461*/ 		printf("\nPlease select the action you want to do: ");
+/* 462*/ 		scanf(" %c", &option);
+/* 463*/ 		option = toupper(option);
+/* 464*/ 
+/* 465*/ 		//check what you typed and compare to the actually selection
+/* 466*/ 		if   (option == 'A' || option == 'D' || option == 'F' || option == 'P' || option == 'U' || option == 'Q')
+/* 467*/ 			error = false;
+/* 468*/ 
+/* 469*/ 		//if the user accident misstyped
+/* 470*/ 		else
+/* 471*/ 			{
+/* 472*/ 			printf("|========================================|\n");
+/* 473*/ 			printf("|  you missed type, please try again :D  |\n");
+/* 474*/ 			printf("|========================================|\n");
+/* 475*/ 			error = true;
+/* 476*/ 			}
+/* 477*/ 		//continue until error becomes false
+/* 478*/ 		} while (error == true);
+/* 479*/ 	return option;
+/* 480*/ }
+/* 481*/ 
+/* 482*/ //add a customer fo the tree
+/* 483*/ //list: points to the tree
+/* 484*/ void addCust (BST_TREE* list)
+/* 485*/ {
+/* 486*/ 	//set a new customer pointer
+/* 487*/ 	CUSTOMERS* custPtr;
+/* 488*/ 	//set a temp variables to capitalize the name
+/* 489*/     char ctmp;
+/* 490*/     int i,L;
+/* 491*/ 
+/* 492*/ 	//allocate memory for the new node
+/* 493*/ 	custPtr = (CUSTOMERS*)malloc (sizeof (CUSTOMERS));
+/* 494*/ 
+/* 495*/ 	//if it fails to allocate, memory error
+/* 496*/ 	if (!custPtr)
+/* 497*/ 	    printf("Memory Overflow in add\n"), exit(101);
+/* 498*/ 
+/* 499*/ 	//success, now enter the data for the new customer
+/* 500*/ 	printf("Enter Customer name   ");
+/* 501*/ 	scanf ("%s",  custPtr->names);
+/* 502*/ 
+/* 503*/ 	//will set the first character of the name to a uppercase so all is the same
+/* 504*/ 	ctmp = toupper(custPtr->names[0]);
+/* 505*/ 	custPtr->names[0] = ctmp;
+/* 506*/ 
+/* 507*/ 	//set the name after the comma a capital
+/* 508*/ 	L=strlen(custPtr->names);
+/* 509*/     for(i=0;i<L;i++)
+/* 510*/ 	{
+/* 511*/ 	    if(custPtr->names[i] == ',' && custPtr->names[i+1] != '\0')
+/* 512*/ 	    {
+/* 513*/ 	        ctmp = toupper(custPtr->names[i+1]);
+/* 514*/ 	        custPtr->names[i+1] = ctmp;
+/* 515*/ 	    }
+/* 516*/ 	}
+/* 517*/ 
+/* 518*/ 	//enter the data for the phone number
+/* 519*/     printf("Enter Customer Phone Number: ");
+/* 520*/ 	scanf ("%s", custPtr->phonenumbers);
+/* 521*/ 
+/* 522*/ 	//insert customer into the tree
+/* 523*/ 	BST_Insert (list, custPtr);
+/* 524*/ }
+/* 525*/ 
+/* 526*/ //delete a customer from the tree
+/* 527*/ //list: point to the tree
+/* 528*/ void deleteCust (BST_TREE* list)
+/* 529*/ {
+/* 530*/ 	//set up a temp field to input the name to be deleted
+/* 531*/ 	int i,L;
+/* 532*/ 	char  name[40],ctmp;
+/* 533*/ 	char* namePtr = name;
+/* 534*/ 
+/* 535*/ 	//ask the user what custome to delete
+/* 536*/ 	printf("Enter Customer Name to DELETE: ");
+/* 537*/ 	scanf ("%s", namePtr);
+/* 538*/ 
+/* 539*/     //set the first character capital
+/* 540*/ 	ctmp = toupper(name[0]);
+/* 541*/ 	name[0] = ctmp;
+/* 542*/ 
+/* 543*/     L=strlen(name);
+/* 544*/ 	//set the second part of the name, first letter to a capital
+/* 545*/ 	for(i=0;i<L;i++)
+/* 546*/ 	{
+/* 547*/ 	    if(name[i] == ',' && name[i+1] != '\0')
+/* 548*/ 	    {
+/* 549*/ 	        ctmp = toupper(name[i+1]);
+/* 550*/ 	        name[i+1] = ctmp;
+/* 551*/ 	    }
+/* 552*/ 	}
+/* 553*/ 
+/* 554*/ 	//delete the customer and if it fails, then it will print no student found
+/* 555*/ 	if (!BST_Delete (list, namePtr))
+/* 556*/ 	   printf("ERROR: No Customer: %10s\n", namePtr);
+/* 557*/ }
+/* 558*/ 
+/* 559*/ //find a customer and prints there name and telephone number
+/* 560*/ void findCust (BST_TREE* list)
+/* 561*/ {
+/* 562*/ 	//set a name character for user to use to find the customer
+/* 563*/ 	char      findname[40],ctmp;
+/* 564*/ 	int i,L;
+/* 565*/ 
+/* 566*/ 	//sets a pointer that will point to a customer
+/* 567*/ 	CUSTOMERS* CustPtr;
+/* 568*/ 
+/* 569*/ 	//user input to get the customer name
+/* 570*/ 	printf("Enter customer name: ");
+/* 571*/ 	scanf ("%s", findname);
+/* 572*/ 
+/* 573*/     //set the first character capital
+/* 574*/ 	ctmp = toupper(findname[0]);
+/* 575*/ 	findname[0] = ctmp;
+/* 576*/ 
+/* 577*/     L=strlen(findname);
+/* 578*/ 	//set the second part of the name, first letter to a capital
+/* 579*/ 	for(i=0;i<L;i++)
+/* 580*/ 	{
+/* 581*/ 	    if(findname[i] == ',' && findname[i+1] != '\0')
+/* 582*/ 	    {
+/* 583*/ 	        ctmp = toupper(findname[i+1]);
+/* 584*/ 	        findname[i+1] = ctmp;
+/* 585*/ 	    }
+/* 586*/ 	}
+/* 587*/ 
+/* 588*/ 	//set the customer pointer to what the BST_retrieve found
+/* 589*/ 	CustPtr = (CUSTOMERS*)BST_Retrieve (list, &findname);
+/* 590*/ 
+/* 591*/ 	//if there is data, it will print it out
+/* 592*/ 	if (CustPtr)
+/* 593*/ 	   {
+/* 594*/ 	    printf("\nCustomer name: %s\n",    CustPtr->names);
+/* 595*/ 	    printf("Customer phone number:  %s\n", CustPtr->phonenumbers);
+/* 596*/ 	   }
+/* 597*/ 
+/* 598*/ 	//if it fails there there is no name in file
+/* 599*/ 	else
+/* 600*/ 	   printf("Customer %s not in file\n", findname);
+/* 601*/ }
+/* 602*/ 
+/* 603*/ //print a list of customers
+/* 604*/ //list: points to the tree
+/* 605*/ void printList  (BST_TREE* list)
+/* 606*/ {
+/* 607*/ 	//header of the list to be printed out
+/* 608*/ 	printf("\n\n");
+/* 609*/ 	printf("+======================+==================+\n");
+/* 610*/ 	printf("| Customer Names       | Telephone number |\n");
+/* 611*/ 	printf("+----------------------+------------------+\n");
+/* 612*/ 
+/* 613*/ 	//prints out each customer
+/* 614*/ 	BST_Traverse (list, processCust);
+/* 615*/ 
+/* 616*/ 	//footer of the list to be printed out
+/* 617*/ 	printf("+======================+==================+\n\n\n");
+/* 618*/ 	return;
+/* 619*/ }
+/* 620*/ 
+/* 621*/ //this will test the tree and print results
+/* 622*/ //tree: points to the BST tree
+/* 623*/ void testUtilties (BST_TREE* tree)
+/* 624*/ {
+/* 625*/ 	//print out how many nodes are in the program
+/* 626*/ 	printf("Tree contains %3d nodes: \n", BST_Count(tree));
+/* 627*/ 	if (BST_Empty(tree))
+/* 628*/ 	    printf("The tree IS empty\n");
+/* 629*/ 	else
+/* 630*/ 	    printf("The tree IS NOT empty\n");
+/* 631*/ 
+/* 632*/ 	//checks if the tree is full or empty
+/* 633*/ 	if (BST_Full(tree))
+/* 634*/ 	    printf("The tree IS full\a\n");
+/* 635*/ 	else
+/* 636*/ 	    printf("The tree IS NOT full\n");
+/* 637*/ 	return;
+/* 638*/ }
+/* 639*/ 
+/* 640*/ //compare two customers with the name
+/* 641*/ //low -1, equal 0, high +1
+/* 642*/ //stu1
+/* 643*/ int  compareCust (void* Cust1, void* Cust2)
+/* 644*/ {
+/* 645*/ 	//set temp holders for the customer
+/* 646*/ 	CUSTOMERS C1;
+/* 647*/ 	CUSTOMERS C2;
+/* 648*/ 
+/* 649*/ 	//set the temps to the actual customer
+/* 650*/ 	C1 =  *(CUSTOMERS*)Cust1;
+/* 651*/ 	C2 =  *(CUSTOMERS*)Cust2;
+/* 652*/ 
+/* 653*/ 	//check if the first customer is less than the second
+/* 654*/ 	if ( strncmp(C1.names,C2.names,20) < 0)
+/* 655*/ 	      return -1;
+/* 656*/ 
+/* 657*/ 	//check if the first customer is equal than the second
+/* 658*/ 	if ( strncmp(C1.names,C2.names,20) == 0)
+/* 659*/ 	      return 0;
+/* 660*/ 
+/* 661*/ 	//returns true if the first customer is more than the second
+/* 662*/ 	return +1;
+/* 663*/ }
+/* 664*/ 
+/* 665*/ //prints the customer name and phonenumber
+/* 666*/ //CustPtr: points to the customer
+/* 667*/ void processCust (void* CustPtr)
+/* 668*/ {
+/* 669*/ 	//set a temp structure to print out the list
+/* 670*/ 	CUSTOMERS aCust;
+/* 671*/ 
+/* 672*/ 	//set aCust to the current customer its pointing to
+/* 673*/ 	aCust = *(CUSTOMERS*)CustPtr;
+/* 674*/ 
+/* 675*/ 	//prints out to the screen(consol/terminal)
+/* 676*/ 	printf("| %-20s | %-16s |\n", aCust.names, aCust.phonenumbers);
+/* 677*/ 
+/* 678*/ 	//return back to the program
+/* 679*/ 	return;
+/* 680*/ }
+/* 681*/ 
+/* 682*/ //adds data from a file to the BST
+/* 683*/ //list: points to the BST tree
+/* 684*/ //*file_list: points to the file we are getting the data from
+/* 685*/ void addfromlist (BST_TREE* list, FILE *file_list)
+/* 686*/ {
+/* 687*/ 	//set a temp holder for name
+/* 688*/ 	char tmpname[40]={0};
+/* 689*/ 
+/* 690*/ 	//set a temp holder for phonenumber
+/* 691*/ 	char tmpphonenumber[20]={0};
+/* 692*/ 
+/* 693*/ 	//set a temp node to hold the data for the customer
+/* 694*/ 	CUSTOMERS* custPtr;
+/* 695*/ 
+/* 696*/ 	//loops until there is nothing in the file
+/* 697*/ 	while( fscanf(file_list,"%s %s", tmpname, tmpphonenumber) == 2)
+/* 698*/ 	{
+/* 699*/ 		//setup the customer pointer
+/* 700*/ 		custPtr = (CUSTOMERS*)malloc (sizeof (CUSTOMERS));
+/* 701*/ 
+/* 702*/ 		//if run out of memory, close
+/* 703*/ 		if (!custPtr)
+/* 704*/ 		   printf("Memory Overflow in add\n"), exit(101);
+/* 705*/ 
+/* 706*/ 		//copy the tmpname string to the customer node
+/* 707*/ 		strncpy(custPtr->names,tmpname,40);
+/* 708*/ 
+/* 709*/ 		//copy the phonenumber string to the customer node
+/* 710*/ 		strncpy(custPtr->phonenumbers, tmpphonenumber,20);
+/* 711*/ 
+/* 712*/ 		//insert the new node into the Binary Search Tree
+/* 713*/ 		BST_Insert (list, custPtr);
+/* 714*/ 	}
+/* 715*/ }
+** compiled *********************************************************
+ece161lab9.cpp
+Microsoft (R) Incremental Linker Version 10.00.30319.01
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/out:Z:\Grading\ece161lab1\Lab9\dnoyes.exe 
+ece161lab9.obj 
+
+
+********** console output **********
+
+********** File lab9_file.txt **********
+  F I L E   N O T   F O U N D

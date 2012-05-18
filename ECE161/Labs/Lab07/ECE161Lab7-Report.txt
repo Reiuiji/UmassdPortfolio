@@ -1,0 +1,14 @@
+|+++++++++++++++++++|
+|   Daniel Noyes    |
+| ECE161Lab7 Report |
+|+++++++++++++++++++|
+
+Structure Concepts
+
+	In the Lab We see the various structures concepts with Stacks, and in Queues. The concept for these sturctures are both opposite for stacks use the first in and last out method and queues use the first in and first out. this is a interesting topic for a type of linear list. These linear list hold data in various ways and we only covered two types
+	
+	In Stacks, we insert data to the top. we create a new node pointer and set the node pointer for data to what the user inputs and the pointer for link will equal the stack top pointer. Then you assign the stack top point to the newnode. 
+	
+	In Queues, we insert data to the rear of the list. we create a new queue node pointer and set the new pointer data to the value the user inputs. then set the pointer for the new node next to a null so it points to nothing on the bottom of the stack. next we check if the count on the quese is 0, if it is true we set the front to the node. if not we put the new node on the rear pointer next node. we then incriment the count by 1 and set the rear to the new node.
+	
+	This is a basic concept of the structure stack and queue. This program was designed to show the changes between transfering data between stack and queue. This shows the concept of stacks reverse the list and quere hold the list in its order it recieved.This lab shows the concepts of various change in queue and stacks. The various Structure concpets of the various changes.

@@ -1,0 +1,233 @@
+**********************************************************************
+Name: Daniel Noyes
+Prog: LAB 4
+grad: 95
+user: dnoyes
+Due: 3/2/2012 11:59:59 PM
+Graded: 3/7/2012 4:09:22 PM
+ece161lab4.cpp Submitted: 2/24/2012 5:01:06 PM
+Comments: Misnaming file
+ece161lab4.cpp
+** start file ********************************************************
+/*   1*/ /* ECE161lab4 project 
+/*   2*/ I, Daniel Noyes, certify that this is my own work and I have not collaborated with anyone else.
+/*   3*/ I encourage the use of this program as OPEN SOURCE.
+/*   4*/ 
+/*   5*/ This Lab recieves data from a txt document for name, id, exams for a student
+/*   6*/ Then it will print to the screen and sort it to a txt file with averages, highest and lowest from the data
+/*   7*/ */
+/*   8*/ 
+/*   9*/ //stops the secure warnings
+/*  10*/ #define _CRT_SECURE_NO_WARNINGS
+/*  11*/ 
+/*  12*/ //grabs the standard input output libraries
+/*  13*/ #include <stdio.h>
+/*  14*/ 
+/*  15*/ //grabs the standard library
+/*  16*/ #include <stdlib.h>
+/*  17*/ 
+/*  18*/ //grabs the string library 
+/*  19*/ #include <string.h>
+/*  20*/ 
+/*  21*/ //set the max students for the program
+/*  22*/ #define MAXSTU 50
+/*  23*/ 
+/*  24*/ 
+/*  25*/ //test Global Declarations for real :D
+/*  26*/ typedef struct
+/*  27*/ {
+/*  28*/ 	char name[26];
+/*  29*/ 	int id;
+/*  30*/ 	int exam[4];
+/*  31*/ 	float avg;
+/*  32*/ } STUDENT ;
+/*  33*/ 
+/*  34*/ //set a sorting array for names
+/*  35*/ void Name_Sort (STUDENT names[],int array_lim);
+/*  36*/ //void Find_High(STUDENT list,int high[]);
+/*  37*/ int Average(STUDENT user[]);
+/*  38*/  
+/*  39*/ int main()
+/*  40*/ {
+/*  41*/ 	//time to go crazy with comments XD
+/*  42*/ 	//define the definitions
+/*  43*/ 	STUDENT student[MAXSTU];
+/*  44*/ 
+/*  45*/ 	int ARRAY_LIM=0,i,j,high[4]={0},low[4]={100,100,100,100};
+/*  46*/ 
+/*  47*/ 	float avg[4]={0},tmp;
+/*  48*/ 
+/*  49*/ 	//set the variable for input and output file
+/*  50*/ 	FILE *DATA, *OUT;
+/*  51*/ 
+/*  52*/ 	//set the input file and check to see if it is there (student_data.txt)
+/*  53*/ 	if ((DATA=fopen("student_data_4.txt","rt")) == NULL)
+/*  54*/ 	{
+/*  55*/ 
+/*  56*/ 		//display student_data.txt not found
+/*  57*/ 		printf("Sorry Could not find the File\nIt might have ran away from you!\nmake sure it is in the same directory as me(Program)");
+/*  58*/ 
+/*  59*/ 		//exit the program with a "EXIT_FAILURE"
+/*  60*/ 		exit(0);
+/*  61*/ 	}
+/*  62*/ 
+/*  63*/ 	//sets the output file and check to see if it is there (sorted_data.txt)
+/*  64*/ 	if ( (OUT=fopen("sorted_data.txt", "wt")) == NULL)
+/*  65*/ 	{
+/*  66*/ 
+/*  67*/ 		//display sorted_data file not found
+/*  68*/ 		printf("Sorry Could not find the File\nPlease Try puting the file in the same Directory as this Program");
+/*  69*/ 
+/*  70*/ 		//exit the program  with a "EXIT_FAILURE"
+/*  71*/ 		exit(2);
+/*  72*/ 	}
+/*  73*/ 
+/*  74*/ 	//grabs the information from the file student_data.txt
+/*  75*/ 
+/*  76*/ 	//print to the terminal
+/*  77*/ 	printf("_____________________________________________________________________________\n");
+/*  78*/ 	printf("| Student Names       |  id  | Exam  1 | Exam  2 | Exam  3 | Exam  4 |Average|\n");
+/*  79*/ 	printf("|---------------------|------|---------|---------|---------|---------|-------|\n");
+/*  80*/ 	while(fscanf(DATA,"%s %d %d %d %d %d",student[ARRAY_LIM].name,&student[ARRAY_LIM].id,&student[ARRAY_LIM].exam[0],&student[ARRAY_LIM].exam[1],&student[ARRAY_LIM].exam[2],&student[ARRAY_LIM].exam[3]) == 6)
+/*  81*/ 	{
+/*  82*/ 		
+/*  83*/ 		//calculate the average
+/*  84*/ 		student[ARRAY_LIM].avg = (student[ARRAY_LIM].exam[0]+student[ARRAY_LIM].exam[1]+student[ARRAY_LIM].exam[2]+student[ARRAY_LIM].exam[3])/4;
+/*  85*/ 
+/*  86*/ 		printf("| %-19s | %4d |   %3d   |   %3d   |   %3d   |   %3d   | %3.2f |\n",student[ARRAY_LIM].name,student[ARRAY_LIM].id,student[ARRAY_LIM].exam[0],student[ARRAY_LIM].exam[1],student[ARRAY_LIM].exam[2],student[ARRAY_LIM].exam[3],student[ARRAY_LIM].avg);
+/*  87*/ 		ARRAY_LIM++;
+/*  88*/ 	}
+/*  89*/ 
+/*  90*/ 	//find the highest ,lowest and average of each exam
+/*  91*/ 	for(i=0;i<4;i++)
+/*  92*/ 	{
+/*  93*/ 		tmp=0;
+/*  94*/ 		for(j=0;j<ARRAY_LIM;j++)
+/*  95*/ 		{
+/*  96*/ 			if(high[i]<student[j].exam[i])
+/*  97*/ 				high[i]=student[j].exam[i];
+/*  98*/ 			if((low[i]>student[j].exam[i]) && (student[j].exam[i]!=0))
+/*  99*/ 				low[i]=student[j].exam[i];
+/* 100*/ 			tmp+=student[j].exam[i];
+/* 101*/ 		}
+/* 102*/ 		avg[i]=tmp/ARRAY_LIM;
+/* 103*/ 	}
+/* 104*/ 	printf("|----------------------------|---------|---------|---------|---------|-------|\n");
+/* 105*/ 	printf("|  Highest grade per exam:   |   %3d   |   %3d   |   %3d   |   %3d   |       |\n",high[0],high[1],high[2],high[3]);
+/* 106*/ 	printf("|  Lowest grade per exam:    |   %3d   |   %3d   |   %3d   |   %3d   |       |\n",low[0],low[1],low[2],low[3]);
+/* 107*/ 	printf("|  Avererage grade per exam: |  %3.2f  |  %3.2f  |  %3.2f  |  %3.2f  |       |\n",avg[0],avg[1],avg[2],avg[3]);
+/* 108*/ 	printf("|----------------------------|---------|---------|---------|---------|-------|\n");
+/* 109*/ 
+/* 110*/ 	//finish grabing from student_data
+/* 111*/ 	fclose(DATA);
+/* 112*/ 
+/* 113*/ 	//sets up a sort program to sort the name of each student
+/* 114*/ 
+/* 115*/ 	Name_Sort (student,ARRAY_LIM);
+/* 116*/ 
+/* 117*/ 	//prints out to a text document (sorted_data.txt)
+/* 118*/ 	fprintf(OUT,"____________________________________________________________________________________\n");
+/* 119*/ 	fprintf(OUT,"| Student Names              |  id  | Exam  1 | Exam  2 | Exam  3 | Exam  4 |Average|\n");
+/* 120*/ 	fprintf(OUT,"|----------------------------|------|---------|---------|---------|---------|-------|\n");
+/* 121*/ 
+/* 122*/ 	//print out each student name, id, exams, and average for the exams
+/* 123*/ 	for(i=0;i<ARRAY_LIM;i++)
+/* 124*/ 	{
+/* 125*/ 		fprintf(OUT,"| %-26s | %4d |   %3d   |   %3d   |   %3d   |   %3d   | %3.2f |\n",student[i].name,student[i].id,student[i].exam[0],student[i].exam[1],student[i].exam[2],student[i].exam[3],student[i].avg);
+/* 126*/ 	}
+/* 127*/ 	fprintf(OUT,"|-----------------------------------|---------|---------|---------|---------|-------|\n");
+/* 128*/ 	fprintf(OUT,"|  Highest grade per exam:          |   %3d   |   %3d   |   %3d   |   %3d   |       |\n",high[0],high[1],high[2],high[3]);
+/* 129*/ 	fprintf(OUT,"|  Lowest grade per exam:           |   %3d   |   %3d   |   %3d   |   %3d   |       |\n",low[0],low[1],low[2],low[3]);
+/* 130*/ 	fprintf(OUT,"|  Avererage grade per exam:        |  %3.2f  |  %3.2f  |  %3.2f  |  %3.2f  |       |\n",avg[0],avg[1],avg[2],avg[3]);
+/* 131*/ 	fprintf(OUT,"|-----------------------------------|---------|---------|---------|---------|-------|\n");
+/* 132*/ 
+/* 133*/ 	//end of printing to file
+/* 134*/ 	fclose(OUT);
+/* 135*/ 
+/* 136*/ 	return 0;
+/* 137*/ 
+/* 138*/ 	//return with interger type data, return without error
+/* 139*/ 	//end of program :D
+/* 140*/ 
+/* 141*/ }
+/* 142*/ 
+/* 143*/ //sorting array for the names on a structure
+/* 144*/ void Name_Sort (STUDENT names[],int array_lim)
+/* 145*/ {
+/* 146*/ 
+/* 147*/ 	int i,j;
+/* 148*/ 	STUDENT tmpname;
+/* 149*/ 
+/* 150*/ 	for(i=array_lim-1;i>=0;i--)
+/* 151*/ 	{
+/* 152*/ 		for(j=1;j<=i;j++)
+/* 153*/ 		{
+/* 154*/ 			if (strcmp(names[j-1].name,names[j].name) > 0)
+/* 155*/ 			{
+/* 156*/ 				tmpname = names[j-1];
+/* 157*/ 				names[j-1]=names[j];
+/* 158*/ 				names[j]=tmpname;
+/* 159*/ 			}
+/* 160*/ 		}
+/* 161*/ 	}
+/* 162*/ }
+** compiled *********************************************************
+ece161lab4.cpp
+Microsoft (R) Incremental Linker Version 10.00.30319.01
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+"/out:C:\Users\David\Dropbox\David-Steve\Grading\ece161lab1\LAB 4\dnoyes.exe" 
+ece161lab4.obj 
+
+
+********** console output **********
+_____________________________________________________________________________
+| Student Names       |  id  | Exam  1 | Exam  2 | Exam  3 | Exam  4 |Average|
+|---------------------|------|---------|---------|---------|---------|-------|
+| Richards,Scott      | 1011 |    67   |    74   |    77   |    87   | 76.00 |
+| Brito,Alexander     | 1017 |    78   |    82   |    95   |    98   | 88.00 |
+| Dorian,Bret         | 1005 |    84   |    81   |    90   |    92   | 86.00 |
+| Jefferson,Manuel    | 1127 |    52   |     0   |    77   |    79   | 52.00 |
+| Kelsey,Anne         | 1110 |    81   |    77   |    84   |    80   | 80.00 |
+| Leblanc,Wayne       | 1154 |    70   |    71   |    70   |    76   | 71.00 |
+| Couto,Bret          | 1132 |    67   |    77   |    84   |    88   | 79.00 |
+| Teves,Louis         | 1125 |     0   |    78   |    89   |    96   | 65.00 |
+| Hajjar,Ives         | 1222 |    87   |    92   |    95   |    90   | 91.00 |
+| Fernandes,Joseph    | 1246 |    57   |    65   |    76   |    80   | 69.00 |
+| Vincent,Jean        | 1271 |    67   |    65   |    94   |    90   | 79.00 |
+| Gomes,Marie         | 1300 |    61   |    71   |    75   |    78   | 71.00 |
+|----------------------------|---------|---------|---------|---------|-------|
+|  Highest grade per exam:   |    87   |    92   |    95   |    98   |       |
+|  Lowest grade per exam:    |    52   |    65   |    70   |    76   |       |
+|  Avererage grade per exam: |  64.25  |  69.42  |  83.83  |  86.17  |       |
+|----------------------------|---------|---------|---------|---------|-------|
+
+
+********** File student_data.out **********
+  F I L E   N O T   F O U N D
+********** File student_data.txt **********
+  F I L E   N O T   F O U N D
+********** File sorted_data.txt **********
+____________________________________________________________________________________
+| Student Names              |  id  | Exam  1 | Exam  2 | Exam  3 | Exam  4 |Average|
+|----------------------------|------|---------|---------|---------|---------|-------|
+| Brito,Alexander            | 1017 |    78   |    82   |    95   |    98   | 88.00 |
+| Couto,Bret                 | 1132 |    67   |    77   |    84   |    88   | 79.00 |
+| Dorian,Bret                | 1005 |    84   |    81   |    90   |    92   | 86.00 |
+| Fernandes,Joseph           | 1246 |    57   |    65   |    76   |    80   | 69.00 |
+| Gomes,Marie                | 1300 |    61   |    71   |    75   |    78   | 71.00 |
+| Hajjar,Ives                | 1222 |    87   |    92   |    95   |    90   | 91.00 |
+| Jefferson,Manuel           | 1127 |    52   |     0   |    77   |    79   | 52.00 |
+| Kelsey,Anne                | 1110 |    81   |    77   |    84   |    80   | 80.00 |
+| Leblanc,Wayne              | 1154 |    70   |    71   |    70   |    76   | 71.00 |
+| Richards,Scott             | 1011 |    67   |    74   |    77   |    87   | 76.00 |
+| Teves,Louis                | 1125 |     0   |    78   |    89   |    96   | 65.00 |
+| Vincent,Jean               | 1271 |    67   |    65   |    94   |    90   | 79.00 |
+|-----------------------------------|---------|---------|---------|---------|-------|
+|  Highest grade per exam:          |    87   |    92   |    95   |    98   |       |
+|  Lowest grade per exam:           |    52   |    65   |    70   |    76   |       |
+|  Avererage grade per exam:        |  64.25  |  69.42  |  83.83  |  86.17  |       |
+|-----------------------------------|---------|---------|---------|---------|-------|
+
+********** File sorted_data.out **********
+  F I L E   N O T   F O U N D

@@ -1,0 +1,635 @@
+**********************************************************************
+Name: Daniel Noyes
+Prog: lab6
+grad: 100
+user: dnoyes
+Due: 4/3/2012 11:59:59 PM
+Graded: 4/17/2012 4:21:28 PM
+ece161lab6.cpp Submitted: 3/30/2012 4:06:56 PM
+Comments: well, when i create a new stack, and copy it to a new one, then try to print the new, copied stack, the program crashes. otherwise good
+ece161lab6.cpp
+** start file ********************************************************
+/*   1*/ /* ECE161lab6 project
+/*   2*/ I, Daniel Noyes, certify that this is my own work and I have not collaborated with anyone else.
+/*   3*/ I encourage the use of this program as OPEN SOURCE.
+/*   4*/ 
+/*   5*/ */
+/*   6*/ 
+/*   7*/ //stops the secure warnings
+/*   8*/ #define _CRT_SECURE_NO_WARNINGS
+/*   9*/ 
+/*  10*/ //grabs the standard input output libraries
+/*  11*/ #include <stdio.h>
+/*  12*/ #include <stdlib.h>
+/*  13*/ #include <string.h>
+/*  14*/ 
+/*  15*/ //set the max structures for the program
+/*  16*/ #define MAX_STACKS 100
+/*  17*/ 
+/*  18*/ //declairs the node for the stack
+/*  19*/ typedef struct node
+/*  20*/ 	{
+/*  21*/ 	void*        dataPtr;
+/*  22*/ 	struct node* link;
+/*  23*/ 	} STACK_NODE;
+/*  24*/ 
+/*  25*/ //declairs the stack structure
+/*  26*/ typedef struct
+/*  27*/ 	{
+/*  28*/ 	int         count;
+/*  29*/ 	STACK_NODE* top;
+/*  30*/ 	} STACK;
+/*  31*/ 
+/*  32*/ 
+/*  33*/ //menu
+/*  34*/ int menu(void);
+/*  35*/ 
+/*  36*/ //menu list printer
+/*  37*/ void mlist(char *word,int Number,int spacecount);
+/*  38*/ 
+/*  39*/ //create stack function
+/*  40*/ STACK*	createStack (void);
+/*  41*/ 
+/*  42*/ //push stack function that will add to the top of the stack
+/*  43*/ bool    pushStack    (STACK* stack, void* dataInPtr);
+/*  44*/ 
+/*  45*/ //pop stack function that will remove the top item in a stack
+/*  46*/ void*	popStack     (STACK* stack);
+/*  47*/ 
+/*  48*/ //check if the stack is empty
+/*  49*/ bool	emptyStack (STACK* stack);
+/*  50*/ 
+/*  51*/ //check if the stack is full
+/*  52*/ bool	fullStack (STACK* stack);
+/*  53*/ 
+/*  54*/ //removes a stack from the program
+/*  55*/ STACK* destroyStack (STACK* stack);
+/*  56*/ 
+/*  57*/ //copy stack
+/*  58*/ STACK* copyStack(STACK* stack);
+/*  59*/ 
+/*  60*/ //chech if two stacks are equal
+/*  61*/ bool eqStack(STACK* stack1, STACK* stack2);
+/*  62*/ 
+/*  63*/ //prints the contets of a stack
+/*  64*/ void prnStack(STACK* stack);
+/*  65*/ 
+/*  66*/ //pause the system until you hit a key
+/*  67*/ void pause(void);
+/*  68*/ 
+/*  69*/ //main
+/*  70*/ int main()
+/*  71*/ {
+/*  72*/ 	//set the main definitions
+/*  73*/ 	char stackname[MAX_STACKS][26];
+/*  74*/ 
+/*  75*/ 	//set the stack
+/*  76*/ 	STACK* stack[MAX_STACKS];
+/*  77*/ 
+/*  78*/ 	//set the following
+/*  79*/ 	//mpick: menu pick variable
+/*  80*/ 	//end: set the end to a stack
+/*  81*/ 	//select/select2: select
+/*  82*/ 	//set temp functions of num and n.
+/*  83*/ 	int mpick,end = 0,select,select2,num, n;
+/*  84*/ 
+/*  85*/     //set a int point called digit
+/*  86*/ 	int* digit;
+/*  87*/ 
+/*  88*/     //set the leave function to false.
+/*  89*/ 	bool leave = false;
+/*  90*/ 	do	{
+/*  91*/ 	    mpick = menu();
+/*  92*/     if(mpick > 1 && mpick <= 12)
+/*  93*/     {
+/*  94*/     if(mpick != 12 && mpick != 10)
+/*  95*/     {
+/*  96*/     //this will print out the stack list
+/*  97*/ 	select = 0;
+/*  98*/ 	printf("\n");
+/*  99*/ 	printf("|-------------------------------------------------------------|\n");
+/* 100*/ 	printf("|          please select what stack you want to edit          |\n");
+/* 101*/ 	printf("|-----|-------------------------------------------------------|\n");
+/* 102*/     }
+/* 103*/     else
+/* 104*/     {
+/* 105*/ 	printf("\n");
+/* 106*/ 	printf("|-------------------------------------------------------------|\n");
+/* 107*/ 	printf("|             currnet list of stack in the program            |\n");
+/* 108*/ 	printf("|-----|-------------------------------------------------------|\n");
+/* 109*/     }
+/* 110*/ 
+/* 111*/ 
+/* 112*/ 	//this will print out the current list of stacks and have you select what you want
+/* 113*/ 	for(n=0; n<end;n++)
+/* 114*/ 	{
+/* 115*/ 	printf("| %3d ",n);
+/* 116*/ 
+/* 117*/ 	printf("|  %-53s|\n",&stackname[n]);
+/* 118*/ 	}
+/* 119*/ 	printf("|_____|_______________________________________________________|\n\n");
+/* 120*/ 
+/* 121*/     if(mpick != 12 && mpick != 10)
+/* 122*/     {
+/* 123*/ 		do{
+/* 124*/ 			if(select <0 || select >=end)
+/* 125*/ 				printf("\nI did not get that, please try again\n");
+/* 126*/         printf("\n\nplease select what stack you want to edit:");
+/* 127*/         scanf("%d",&select);
+/* 128*/ 		}while (select <0 || select >=end);
+/* 129*/     }
+/* 130*/ 	}
+/* 131*/ 
+/* 132*/ //this is the main function to pick what the program does
+/* 133*/ 	switch(mpick)
+/* 134*/ 	{
+/* 135*/ 		//0:incase you miss type in the menu you will end up here, might not actually execute
+/* 136*/ 		case 0:
+/* 137*/ 			printf("exit the program, have a nice day :)\n");
+/* 138*/ 			leave = true;
+/* 139*/ 			break;
+/* 140*/ 
+/* 141*/ 
+/* 142*/ 		//1: Creates a new stack
+/* 143*/ 		case 1:
+/* 144*/ 			printf("what do you want to name the stack:");
+/* 145*/ 			scanf("%s",stackname[end]);
+/* 146*/ 			stack[end] = createStack();
+/* 147*/ 			end++;
+/* 148*/ 			break;
+/* 149*/ 
+/* 150*/ 		//2: add content to a stack
+/* 151*/ 		case 2:
+/* 152*/             digit = (int*) malloc (sizeof(int));
+/* 153*/ 			printf("type in what you want to store in the stack %s:",stackname[select]);
+/* 154*/ 			scanf("%d",&num);
+/* 155*/ 			*digit = num;
+/* 156*/ 			pushStack(stack[select],digit);
+/* 157*/ 			break;
+/* 158*/ 
+/* 159*/ 		//3: remove content from a stack
+/* 160*/ 		case 3:
+/* 161*/ 			printf("you have removed: %d from the stack",*(int*)popStack (stack[select]));
+/* 162*/ 			break;
+/* 163*/ 
+/* 164*/         //4: check what is top in a stack
+/* 165*/         case 4:
+/* 166*/ 			printf("the top of stack %s is : %d",stackname[select],*(int*)stack[select]->top->dataPtr);
+/* 167*/             break;
+/* 168*/ 
+/* 169*/         //5: check if a stack is empty
+/* 170*/         case 5:
+/* 171*/ 			if(emptyStack (stack[select])==true)
+/* 172*/ 				printf("stack is empty\n");
+/* 173*/ 			else
+/* 174*/ 				printf("stack is not empty\n");
+/* 175*/ 			system("pause");
+/* 176*/             break;
+/* 177*/ 
+/* 178*/         //6: check if a stack is full
+/* 179*/         case 6:
+/* 180*/ 			if(fullStack (stack[select])==true)
+/* 181*/ 				printf("stack is full, try and free up some memory\n");
+/* 182*/ 			else
+/* 183*/ 				printf("stack is not full\n");
+/* 184*/ 			system("pause");
+/* 185*/             break;
+/* 186*/ 
+/* 187*/         //7: count how many in the stack
+/* 188*/         case 7:
+/* 189*/             printf("\nThere are %d items in stack %s\n\n",stack[select]->count,stackname[select]);
+/* 190*/             break;
+/* 191*/ 
+/* 192*/         //8: destory a stack
+/* 193*/         case 8:
+/* 194*/ 			printf("do you want to destory %s? \n 1:yes\n 0:no\n",stackname[select]);
+/* 195*/ 			do{
+/* 196*/ 				scanf("%d",&num);
+/* 197*/ 			} while (num < 0 || num > 1);
+/* 198*/ 			if( num == 1)
+/* 199*/ 			{
+/* 200*/ 				if(select == end)
+/* 201*/ 				{
+/* 202*/ 					destroyStack(stack[select]);
+/* 203*/ 					for (n=0;n<26;n++)
+/* 204*/ 						stackname[select][n] = NULL;
+/* 205*/ 				}
+/* 206*/ 				else
+/* 207*/ 				{
+/* 208*/ 					destroyStack(stack[select]);
+/* 209*/ 					for(n=select;n<end;n++)
+/* 210*/ 					{
+/* 211*/ 						stack[n]= stack[n+1];
+/* 212*/ 						strncpy(stackname[n],stackname[n+1],26);
+/* 213*/ 					}
+/* 214*/ 				}
+/* 215*/ 				end--;
+/* 216*/ 				printf("Deleted the stack");
+/* 217*/ 			}
+/* 218*/ 			else
+/* 219*/ 				printf("did not delete the stack");
+/* 220*/             break;
+/* 221*/ 
+/* 222*/         //9: copies from one stack to another
+/* 223*/         case 9:
+/* 224*/ 			printf("what do you want to name the stack copied stack:");
+/* 225*/ 			scanf("%s",stackname[end]);
+/* 226*/ 			stack[end] = copyStack(stack[select]);
+/* 227*/ 			end++;
+/* 228*/             break;
+/* 229*/ 
+/* 230*/         //10: check if two stacks are equal
+/* 231*/         case 10:
+/* 232*/ 			printf("\n\nplease select first stack you want to check:");
+/* 233*/ 			scanf("%d",&select);
+/* 234*/ 			printf("\n\nplease select second stack you want to check:");
+/* 235*/ 			scanf("%d",&select2);
+/* 236*/ 			if(eqStack(stack[select], stack[select2]) == true)
+/* 237*/ 				printf("Both stacks %s and %s are equal\n",stackname[select],stackname[select2]);
+/* 238*/ 			else
+/* 239*/ 				printf("Both stacks %s and %s are Not equal\n",stackname[select],stackname[select2]);
+/* 240*/             pause();
+/* 241*/             break;
+/* 242*/ 
+/* 243*/         //11: prints the contents to the terminal
+/* 244*/         case 11:
+/* 245*/ 			printf("\n\nCurrently in stack %s: ",stackname[select]);
+/* 246*/ 			prnStack(stack[select]);
+/* 247*/ 			pause();
+/* 248*/             break;
+/* 249*/ 
+/* 250*/         //12: prints out the current list of stacks
+/* 251*/         case 12:
+/* 252*/             //getchar();
+/* 253*/             pause();
+/* 254*/             break;
+/* 255*/ 
+/* 256*/         }
+/* 257*/ 	} while(leave == false);
+/* 258*/ 
+/* 259*/ 	//outputs if the program was a success
+/* 260*/ 	return 0;
+/* 261*/ }
+/* 262*/ 
+/* 263*/ 
+/* 264*/ //the main menu function
+/* 265*/ int menu(void)
+/* 266*/ {
+/* 267*/ 	//define the pick variable that will return to the main program
+/* 268*/ 	int pick;
+/* 269*/ 
+/* 270*/ 	//prints out to the terminal the main menu for the program
+/* 271*/ 	printf("\n");
+/* 272*/ 	printf("|-------------------------------------------------------------|\n");
+/* 273*/ 	printf("|           welcome to Lab 6: Stacks as Linked List           |\n");
+/* 274*/ 	printf("|         Please select what operation you want to do         |\n");
+/* 275*/ 	printf("|-----|-------------------------------------------------------|\n");
+/* 276*/ 
+/* 277*/ 	//condense the list for the menu to a mlist function that will print the list properly
+/* 278*/ 	mlist("Create a new Stack",1,61);
+/* 279*/ 	mlist("Add to a stack",2,61);
+/* 280*/ 	mlist("Remove from a stack",3,61);
+/* 281*/ 	mlist("Check what is top in the stack",4,61);
+/* 282*/ 	mlist("Check if a stack is empty",5,61);
+/* 283*/ 	mlist("Check if a stack is full",6,61);
+/* 284*/ 	mlist("Count how many in the stack",7,61);
+/* 285*/ 	mlist("Destory a stack",8,61);
+/* 286*/ 	mlist("Copies the contents of one stack into another",9,61);
+/* 287*/ 	mlist("Check each stack whether the contents are equal",10,61);
+/* 288*/ 	mlist("prints the contents of a stack",11,61);
+/* 289*/ 	mlist("lookup the current list of stacks",12,61);
+/* 290*/ 
+/* 291*/ 	//tells how to close the program
+/* 292*/ 	mlist("close the program",0,61);
+/* 293*/ 
+/* 294*/ 	//ends the menu being print out to the list
+/* 295*/ 	printf("|_____|_______________________________________________________|\n\n");
+/* 296*/ 
+/* 297*/ 	//this do while loop will constanly go untill you type the write number
+/* 298*/ 	do{
+/* 299*/ 		printf("Please select the action you want to do:");
+/* 300*/ 		scanf("%d",&pick);
+/* 301*/ 		if (pick <0 || pick >12)
+/* 302*/ 		{
+/* 303*/ 			printf("|========================================|\n");
+/* 304*/ 			printf("|  you missed type, please try again :D  |\n");
+/* 305*/ 			printf("|========================================|\n");
+/* 306*/ 		}
+/* 307*/ 	}while (pick <0 || pick >12);
+/* 308*/ 
+/* 309*/ 	return pick;
+/* 310*/ }
+/* 311*/ 
+/* 312*/ //this will print out a list for the menu, (module test)
+/* 313*/ void mlist(char *word,int Number,int spacecount)
+/* 314*/ {
+/* 315*/ 	//print out the number for your selection
+/* 316*/ 	printf("| %3d ",Number);
+/* 317*/ 
+/* 318*/ 	//print out the list and will print going left to right
+/* 319*/ 	printf("|  %-*s%*s|\n",strlen(word),word,(spacecount-8-strlen(word))," ");
+/* 320*/ }
+/* 321*/ 
+/* 322*/ 
+/* 323*/ 
+/* 324*/ //this will create a stack
+/* 325*/ STACK* createStack (void)
+/* 326*/ {
+/* 327*/ //declair temp stack
+/* 328*/ 	STACK* stack;
+/* 329*/ 
+/* 330*/ //set the stack with memmory allocated towards it
+/* 331*/ 	stack = (STACK*) malloc( sizeof (STACK));
+/* 332*/ 
+/* 333*/ 	//check if there is a valid place for the stack since malloc could get a full memory problem
+/* 334*/ 	if (stack)
+/* 335*/ 	   {
+/* 336*/ 	        //set the count of the stack to 0
+/* 337*/             stack->count = 0;
+/* 338*/ 
+/* 339*/             //set the top stack pointer to NULL since there is nothing it should point to
+/* 340*/             stack->top   = NULL;
+/* 341*/ 	   }
+/* 342*/ 
+/* 343*/ 	   //return stack to the main program
+/* 344*/         return stack;
+/* 345*/ }
+/* 346*/ 
+/* 347*/ //this will add a new item to the stack
+/* 348*/ bool pushStack (STACK* stack, void* dataInPtr)
+/* 349*/ {
+/* 350*/     //declair a new pointer node for the stack
+/* 351*/ 	STACK_NODE* NewNode;
+/* 352*/ 
+/* 353*/     //sets the new nod
+/* 354*/ 	NewNode = (STACK_NODE*)malloc(sizeof(STACK_NODE));
+/* 355*/ 
+/* 356*/     //if there is no new node since memory full, it will close the program
+/* 357*/ 	if (!NewNode)
+/* 358*/ 	    return 0;
+/* 359*/ 
+/* 360*/ 	//set the data pointer from the iput given
+/* 361*/ 	NewNode->dataPtr = dataInPtr;
+/* 362*/ 
+/* 363*/ 	//set the data pointer to the previous top item
+/* 364*/ 	NewNode->link    = stack->top;
+/* 365*/ 
+/* 366*/ 	//set the stack top to the new node
+/* 367*/ 	stack->top      = NewNode;
+/* 368*/ 
+/* 369*/ 	//add one to the current stack
+/* 370*/ 	(stack->count)++;
+/* 371*/ 	return 1;
+/* 372*/ }
+/* 373*/ 
+/* 374*/ //this will remove the top item from the stack
+/* 375*/ void* popStack (STACK* stack)
+/* 376*/ {
+/* 377*/ //Definitions
+/* 378*/ 	void*       dataOutPtr;
+/* 379*/ 	STACK_NODE* temp;
+/* 380*/ 
+/* 381*/ 	//checks if count is zer, if it is true then the pointer to the data will be null
+/* 382*/ 	if (stack->count == 0)
+/* 383*/ 	    dataOutPtr = NULL;
+/* 384*/ 	else
+/* 385*/ 	   {
+/* 386*/             //sets a temp node to the top node
+/* 387*/             temp       = stack->top;
+/* 388*/ 
+/* 389*/             //grabs the data from the top node
+/* 390*/             dataOutPtr = stack->top->dataPtr;
+/* 391*/ 
+/* 392*/             //set the stack top to the topnode link so it points the the next nodes under the top node
+/* 393*/             stack->top = stack->top->link;
+/* 394*/ 
+/* 395*/             //free up some memory by removing the top node
+/* 396*/             free (temp);
+/* 397*/ 
+/* 398*/             //decrese the stack count by 1
+/* 399*/             (stack->count)--;
+/* 400*/ 	   }
+/* 401*/ 
+/* 402*/ 	   //returns the value that was previous in the top node data
+/* 403*/         return dataOutPtr;
+/* 404*/ }
+/* 405*/ 
+/* 406*/ //checks if the stack is empty
+/* 407*/ bool emptyStack (STACK* stack)
+/* 408*/ {
+/* 409*/     //check if stack count is zero, if true then it will output true etc.
+/* 410*/ 	return (stack->count == 0);
+/* 411*/ }
+/* 412*/ 
+/* 413*/ //checks if the stack is full
+/* 414*/ bool fullStack (STACK* stack)
+/* 415*/ {
+/* 416*/ 	//definition
+/* 417*/ 	STACK_NODE* temp;
+/* 418*/ 
+/* 419*/     //checks to see if you can put a new node in the stack
+/* 420*/ 	if ((temp =
+/* 421*/ 	   (STACK_NODE*)malloc (sizeof(*(stack->top)))))
+/* 422*/ 	   {
+/* 423*/ 	       //after finishing, frees up the temp node
+/* 424*/             free (temp);
+/* 425*/ 
+/* 426*/             //returns true since there is free memory
+/* 427*/             return 0;
+/* 428*/ 	   }
+/* 429*/ 
+/* 430*/ 	// returns false since malloc fails
+/* 431*/ 	return 1;
+/* 432*/ }
+/* 433*/ 
+/* 434*/ //destory a stack in the program
+/* 435*/ STACK* destroyStack (STACK* stack)
+/* 436*/ {
+/* 437*/ //definition
+/* 438*/ 	STACK_NODE* temp;
+/* 439*/ 
+/* 440*/     //checks to see if there is a actual stack
+/* 441*/ 	if (stack)
+/* 442*/ 	   {
+/* 443*/             // Delete all nodes in stack
+/* 444*/             while (stack->top != NULL)
+/* 445*/             {
+/* 446*/ 
+/* 447*/                 // Delete data entry
+/* 448*/                 free (stack->top->dataPtr);
+/* 449*/ 
+/* 450*/                 //sets the temp node to the stack top pointer so i can point to the node it wants to delete
+/* 451*/                 temp = stack->top;
+/* 452*/ 
+/* 453*/                 //sets the stack top to the top node link, so it points to the previous node in the stack
+/* 454*/                 stack->top = stack->top->link;
+/* 455*/ 
+/* 456*/                 //frees up the old node memory by free the temp which links to the old node that was on top
+/* 457*/                 free (temp);
+/* 458*/             }
+/* 459*/ 
+/* 460*/ 	    // Stack now empty. Destroy stack head node.
+/* 461*/ 	    free (stack);
+/* 462*/         }
+/* 463*/ 
+/* 464*/         //returns a null value since there should not be a return value, just a null
+/* 465*/         return NULL;
+/* 466*/ }
+/* 467*/ 
+/* 468*/ //This will copy the stack in a parellel function, so goes down from the stack list and copy to the new one the same way
+/* 469*/ STACK* copyStack(STACK* stack)
+/* 470*/ {
+/* 471*/     //definitions
+/* 472*/ 	STACK* NewStack;
+/* 473*/ 	STACK_NODE* NewNode;
+/* 474*/ 
+/* 475*/ 	//link to the node it is copying to
+/* 476*/ 	struct node* TempLinkNew;
+/* 477*/ 
+/* 478*/ 	//link to the node your copying from
+/* 479*/ 	struct node* TempLinkOrig;
+/* 480*/ 
+/* 481*/ 	//link that will be used to set the null for the new node
+/* 482*/ 	struct node* TempLinkEnd;
+/* 483*/ 
+/* 484*/     //set the stack with memmory allocated towards it
+/* 485*/ 	NewStack = (STACK*) malloc( sizeof (STACK));
+/* 486*/ 	if (NewStack)
+/* 487*/ 	   {
+/* 488*/             //sets up the stack count
+/* 489*/             NewStack->count = stack->count;
+/* 490*/ 
+/* 491*/ 			//set up a templink to the original top pointer
+/* 492*/ 			TempLinkOrig = stack->top;
+/* 493*/ 
+/* 494*/ 			//if the templink has nothing then the job is done, just copied the stack head
+/* 495*/ 			if(TempLinkOrig == NULL)
+/* 496*/ 				return NULL;
+/* 497*/ 
+/* 498*/ 			//creates first node for the new stack
+/* 499*/ 			NewNode = (STACK_NODE*)malloc(sizeof(STACK_NODE));
+/* 500*/ 			if (!NewNode)
+/* 501*/ 				return 0;
+/* 502*/ 
+/* 503*/ 			//set the newstack to point to the new node
+/* 504*/ 			NewStack->top = NewNode;
+/* 505*/ 
+/* 506*/ 			//sets the temp link to the first node in the new stack
+/* 507*/ 			TempLinkNew = NewStack->top;
+/* 508*/ 
+/* 509*/             //sets up rest of the nodes
+/* 510*/             while(TempLinkOrig != NULL)
+/* 511*/ 			{
+/* 512*/ 			    //sets the templink end to equal the current link for the node
+/* 513*/ 				TempLinkEnd = TempLinkNew;
+/* 514*/ 
+/* 515*/ 				//set the data in the first node to the first node of the original
+/* 516*/ 				TempLinkNew->dataPtr = TempLinkOrig->dataPtr;
+/* 517*/ 
+/* 518*/ 				//sets up the new node
+/* 519*/ 				NewNode = (STACK_NODE*)malloc(sizeof(STACK_NODE));
+/* 520*/ 
+/* 521*/ 				//if there is a null in the node, it will output a false which indicate a fail
+/* 522*/ 				if (!NewNode)
+/* 523*/ 					 return 0;
+/* 524*/ 
+/* 525*/                 //sets the temp new link to the node
+/* 526*/ 				TempLinkNew->link = NewNode;
+/* 527*/ 
+/* 528*/ 				//goes down the path for the original stack
+/* 529*/ 				TempLinkOrig = TempLinkOrig->link;
+/* 530*/ 
+/* 531*/ 				//goes down the path of the new stack
+/* 532*/ 				TempLinkNew = TempLinkNew->link;
+/* 533*/ 
+/* 534*/ 			}
+/* 535*/ 			//when it is finish, it will set the bottom node to a null, since templinknew will be a null, you have to have a previous link to set it to null
+/* 536*/ 			TempLinkEnd->link = NULL;
+/* 537*/         }
+/* 538*/     else{
+/* 539*/         //if it fails, will print a error and send out a null
+/* 540*/         printf("error creating copy stack");
+/* 541*/ 
+/* 542*/         //returns a null
+/* 543*/         return NULL;
+/* 544*/         }
+/* 545*/ 
+/* 546*/     //if it successed then it will send the newstack out to the program
+/* 547*/     return NewStack;
+/* 548*/ }
+/* 549*/ 
+/* 550*/ //check if two stacks are equal
+/* 551*/ bool eqStack(STACK* stack1, STACK* stack2)
+/* 552*/ {
+/* 553*/     //set two links to the top of each stack
+/* 554*/ 	struct node* TempLink1=stack1->top;
+/* 555*/ 	struct node* TempLink2=stack2->top;
+/* 556*/ 
+/* 557*/ 	//check if both stacks have the same amount of nodes
+/* 558*/ 	if(stack1->count != stack2->count)
+/* 559*/ 		return 0; // returns a false
+/* 560*/ 
+/* 561*/ 	while (TempLink1 != NULL)
+/* 562*/ 	{
+/* 563*/ 		//contantly checks if both are eqaul, if not output false
+/* 564*/ 		if(*(int*)TempLink1->dataPtr != *(int*)TempLink2->dataPtr)
+/* 565*/ 			return 0;
+/* 566*/ 
+/* 567*/ 		//set the new points
+/* 568*/ 		TempLink1 = TempLink1->link;
+/* 569*/ 		TempLink2 = TempLink2->link;
+/* 570*/ 	}
+/* 571*/ 
+/* 572*/ 	//if everything was success full print out a true
+/* 573*/ 	return 1;
+/* 574*/ }
+/* 575*/ 
+/* 576*/ //prints the contets of a stack
+/* 577*/ void prnStack(STACK* stack)
+/* 578*/ {
+/* 579*/     //definition
+/* 580*/ 	struct node* TempLink;
+/* 581*/ 
+/* 582*/ 	//set a templink to the top
+/* 583*/ 	TempLink = stack->top;
+/* 584*/ 
+/* 585*/ 	//constanly print out till it encounters a null
+/* 586*/     while(TempLink != NULL)
+/* 587*/ 	{
+/* 588*/ 	    //print out the data for the node with a output of point int instead of node
+/* 589*/ 		printf("%d ",*(int*)TempLink->dataPtr);
+/* 590*/ 
+/* 591*/ 		//set the templink to the next link on the stack
+/* 592*/ 		TempLink = TempLink->link;
+/* 593*/ 	}
+/* 594*/ }
+/* 595*/ 
+/* 596*/ //pausing function in the program
+/* 597*/ void pause(void)
+/* 598*/ {
+/* 599*/ 	//return the next value from stdin
+/* 600*/     getchar();
+/* 601*/ 
+/* 602*/     //wait until you hit anything
+/* 603*/     fputs ( "\n\nPress [Enter] to continue . . .", stdout );
+/* 604*/ 
+/* 605*/     //flush the stdout
+/* 606*/ 	fflush ( stdout );
+/* 607*/ 
+/* 608*/ 	//return the next value from stdin
+/* 609*/ 	getchar();
+/* 610*/ }
+** compiled *********************************************************
+ece161lab6.cpp
+Microsoft (R) Incremental Linker Version 10.00.30319.01
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/out:C:\Users\David\Dropbox\David-Steve\Grading\ece161lab1\lab6\dnoyes.exe 
+ece161lab6.obj 
+
+
+********** console output **********
+
+
+
+** Program terminated because it ran for too long **

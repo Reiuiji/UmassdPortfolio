@@ -1,0 +1,15 @@
+Einstein,Albert		774-508-9954
+Abrew,Steve		705-345-2334
+Nagasake,David		714-345-3236
+Black,Mike		715-456-7890
+Dijkstra,Andrew		508-910-3456
+Nguyen,Joanne		617-765-4365
+Walljasper,Chris	508-999-8489
+Albert,Fred		508-999-8539
+Dudley,Dennis		508-999-8387
+Rice,Leo		508-999-8492
+Flintstone,Fred		617-999-8491
+Dupre,Frances		617-456-3210
+Light,Dave		508-123-4567
+Tran,Hua		617-617-6172
+Trapp,Sarah		508-999-9999
