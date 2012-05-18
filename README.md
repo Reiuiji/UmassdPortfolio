@@ -13,6 +13,7 @@ Courses
 | Course | Description | semester
 |--------|-------------|---------
 | [ECE 160](ECE160)| Foundations of Computer Engineering I | S1-Fall-2011
+| [ECE 161](ECE161)| Foundations of Computer Engineering II | S2-Spring-2012
 
 
 Usage
