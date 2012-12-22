@@ -1,7 +1,7 @@
 # UmassdPortfolio
 =================
 
-Collection of all work I accomplished at University of Massachusetts Dartmouth
+Collection of all work(Code) I accomplished at University of Massachusetts Dartmouth
 
 Courses
 =======
@@ -14,6 +14,9 @@ Courses
 |--------|-------------|---------
 | [ECE 160](ECE160)| Foundations of Computer Engineering I | S1-Fall-2011
 | [ECE 161](ECE161)| Foundations of Computer Engineering II | S2-Spring-2012
+| [ECE 250](ECE250)| Fundamentals of MATLAB | S3-Fall-2012
+| [ECE 257](ECE257)| Fund. System Software w/ UNIX | S3-Fall-2012
+| [ECE 260](ECE260)| Digital Logic & Computer Design | S3-Fall-2012
 
 
 Usage
