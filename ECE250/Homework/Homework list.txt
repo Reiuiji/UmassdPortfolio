@@ -1,0 +1,25 @@
+Homework
+NOTICE: All submissions must include the complete scripts as well as any generated output and/or relevant figure(s). Further, all submissions must be typed (i.e., no hand-written submissions). Here is a SAMPLE Solution to a typical homework assignment (from a different textbook!).
+
+    Chapter 1: 4, 7, 8, 10, 14, 17, 23, 33 (Due Wednesday, 09-12-2012 & Friday, 09-14-2012)
+    Solution to Assignment 1
+    Chapter 2: ... (Due Wednesday, 09-19-2012 & Friday, 09-21-2012)
+    Solution to Assignment 2
+    Chapter 3: ... (Due Wednesday, 09-26-2012 & Friday, 09-28-2012)
+    Solution to Assignment 3
+    Chapter 4: ... (Due Wednesday, 10-03-2012 & Friday, 10-05-2012)
+    Solution to Assignment 4
+    Chapter 5: ... (Due  Wednesday, 10-10-2012 & Friday, 10-12-2012)
+    Solution to Assignment 5
+    Chapter 6: ... (Due Friday, 10-19-2012 & Wednesday, 10-24-2012)
+    Solution to Assignment 6 
+    Chapter 7: ... (Due Friday, 10-26-2012 & Wednesday, 10-31-2012)
+    Solution to Assignment 7
+    Chapter 8: ... (Due Wednesday, 11-07-2012 & Friday, 11-09-2012)
+    Solution to Assignment 8
+    Chapter 9: ...  (Due Wednesday, 11-14-2012 & Friday, 11-16-2012)
+    Solution to Assignment 9
+    Chapter 10: ... (Due Wednesday, 11-28-2012 & Friday, 11-30-2012)
+    Solution to Assignment 10
+    Chapter 11: ... (Due Wednesday, 12-05-2012 & Friday, 12-07-2012)
+    Solution to Assignment 11

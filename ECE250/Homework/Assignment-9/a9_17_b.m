@@ -1,0 +1,1 @@
+fprintf('intergral for e^(-x^2) from -1 to 1 =\n\n%5.4f\n',quad('exp(-x.^2)',-1,1));
