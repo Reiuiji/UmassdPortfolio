@@ -17,6 +17,7 @@ Courses
 | [ECE 250](ECE250)| Fundamentals of MATLAB | S3-Fall-2012
 | [ECE 257](ECE257)| Fund. System Software w/ UNIX | S3-Fall-2012
 | [ECE 260](ECE260)| Digital Logic & Computer Design | S3-Fall-2012
+| [PHY 112](PHY112)| Physics for Science and Engineering II – Electricity and Magnetism | S3-Fall-2012
 
 
 Usage
