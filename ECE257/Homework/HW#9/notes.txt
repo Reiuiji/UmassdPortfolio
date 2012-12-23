@@ -1,0 +1,18 @@
+pcre:
+./configure --prefix=/ENG-share/dnoyes/opt/local
+
+https:
+./configure --prefix=/ENG-share/dnoyes/www --with-pcre=/ENG-share/dnoyes/opt/local/
+
+postgresql:
+./configure --prefix=/ENG-share/dnoyes/www/postgresql
+
+php:
+./configure --prefix=/ENG-share/dnoyes/www/php --with-apxs2=/ENG-share/dnoyes/www/bin/apxs --with-pgsql=/ENG-share/dnoyes/www/postgresql
+
+
+        $ make configure ;# as yourself
+        $ ./configure --prefix=/usr ;# as yourself
+        $ make all doc ;# as yourself
+        # make install install-doc install-html;# as root
+

@@ -1,0 +1,45 @@
+
+dir = /tmp/ece257
+
+mkdir -p ${dir}/package
+cd ${dir}/package
+
+//Build httpd
+wget http://apache.osuosl.org/httpd/httpd-2.4.3.tar.gz
+wget http://www.eng.lsu.edu/mirrors/apache/apr/apr-util-1.5.1.tar.gz
+wget http://www.eng.lsu.edu/mirrors/apache/apr/apr-1.4.6.tar.gz
+
+
+tar zxf httpd*.tar.gz -C ${dir}/package
+tar zxf apr-util*.tar.gz -C ${dir}/package/httpd-2.4.3/srclib/apr-util
+tar zxf apr-1.4.6.tar.gz -C ${dir}/package/httpd-2.4.3/srclib/apr
+
+
+pcre
+wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.32.tar.gz
+tar zxf pcre*.tar.gz -C ${dir}/package
+cd ${dir}/package/pcre-8.32
+./configure --prefix=${dir}/pcre && make && make install
+
+
+
+cd ${dir}/package/httpd-2.4.3
+./configure --prefix=${dir} --with-pcre=${dir}/pcre && make && make install
+
+
+
+//build mysql
+wget http://dev.mysql.com/get/Downloads/MySQL-5.1/mysql-5.1.66.tar.gz
+tar zxf mysql*.tar.gz -C ${dir}/package
+cd ${dir}/package/mysql-5.1.66/
+./configure --prefix=${dir}/mysql && make && make install
+
+
+
+
+//Build php
+
+wget http://us2.php.net/distributions/php-5.4.9.tar.gz
+tar zxf php*.tar.gz -C ${dir}/package
+cd ${dir}/package/php-5.4.9/
+./configure --prefix=${dir}/php --with-apxs2=${dir}/bin/apxs --with-mysql=${dir}/mysql --with-mysqli=${dir}/mysql/bin/mysql_config

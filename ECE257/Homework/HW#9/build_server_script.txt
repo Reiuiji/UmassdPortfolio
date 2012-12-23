@@ -1,0 +1,68 @@
+++download all three source files
+locations for downloads
+http://opensource.become.com/apache/httpd/httpd-2.2.14.tar.gz
+http://us2.php.net/get/php-5.3.0.tar.gz/from/a/mirror
+http://dev.mysql.com/get/Downloads/MySQL-5.1/mysql-5.1.40.tar.gz/from/pick#mirrors
+
+put all three files in a directory like $HOME/Downloads
+
+++extract all sources
+gzip -d *
+tar xf mysql-5.1.40.tar
+tar xf httpd-2.2.14.tar
+tar xf php-5.3.0.tar
+
+++install apache
+eng-svr-1:/home/u_broy/Downloads/httpd-2.2.14>./configure --prefix=$HOME/www && make && make install
+
+++ get a soda, you should probably start on some nachos too.
+
+++ install mysql
+eng-svr-1:/home/u_broy/Downloads/mysql-5.1.40>./configure --prefix=$HOME/www/mysql && make && make install
+
+++ start enjoying those nachos.
+
+++ install php&
+eng-svr-1:/home/u_broy/Downloads/php-5.3.0>./configure --prefix=$HOME/www/php --with-apxs2=$HOME/www/bin/apxs --with-mysql=$HOME/www/mysql --with-mysqli=$HOME/www/mysql/bin/mysql_config
+make && make install
+
+++ you might want to make yourself a sandwich
+
+++ configure the installs
+eng-svr-1:/home/u_broy/www>cp $HOME/www/lib/mysql/libmysqlclient.so $HOME/www/modules/
+
+
+++ create your database
+eng-svr-1:/home/u_broy/www/mysql/bin>mysql_install_db 
+eng-svr-1:/home/u_broy/www/mysql/bin>mysqld_safe &
+eng-svr-2:/home/u_broy/www/mysql/bin>mysqladmin -u root password mypass
+eng-svr-2:/home/u_broy/www/mysql/bin>mysql -u root -p
+
+mysql> CREATE DATABASE ece257;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> CREATE TABLE  students (
+    -> id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    -> name VARCHAR(50)
+    -> );
+
+mysql> INSERT INTO students (name) VALUES ('ben viall');
+Query OK, 1 row affected (0.03 sec)
+
+mysql>quit
+
+
+
+++Add this to your httpd.conf file
+<FilesMatch \.php$>
+	SetHandler application/x-httpd-php
+</FilesMatch>
+
+change line 40 from "Listen 80" to "Listen <last 4 digits of your SSID>"
+example SSID = 01043454: Listen 3454 (Make sure it is a high number) 
+
+
+++ start your webserver (doing it from this directory is inportant
+eng-svr-2:/home/u_broy/www/bin>./apachectl start
+
+

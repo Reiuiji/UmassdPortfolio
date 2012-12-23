@@ -1,0 +1,84 @@
+++Make a Directory for you project
+mkdir -p /tmp/$(whoami)/ece257/{project,www}
+**
+$(whoami) is you username on the ece server,
+it is like typeing whoami on the server
+if you cant just do a find replace '$(whoami)' to your user name
+**
+
+++since you can not download to the server, the files for the project will be at /tmp/ece-257-mysql/project-files
+
+
+++extract all sources to you project dir
+cd /tmp/ece257-mysql/project-files
+tar zxf apr-1.4.6.tar.gz -C /tmp/$(whoami)/ece257/project/
+tar zxf apr-util-1.5.1.tar.gz -C /tmp/$(whoami)/ece257/project/
+tar zxf httpd-2.4.3.tar.gz -C /tmp/$(whoami)/ece257/project/
+tar zxf pcre-8.31.tar.gz -C /tmp/$(whoami)/ece257/project/
+tar zxf php-5.4.9.tar.gz -C /tmp/$(whoami)/ece257/project/
+
+cd /tmp/$(whoami)/ece257/project/
+
+++install apache
+++you have to grab the necessary dependency pcre
+cd pcre*
+./configure --prefix=/tmp/$(whoami)/ece257/www/pcre && make && make install
+
+++now Apache
+cd ../httpd*
+++grab the necessay apr util to build apache
+mv ../apr-1.4.6 srclib/apr
+mv ../apr-util-1.5.1 srclib/apr-util
+
+./configure --prefix=/tmp/$(whoami)/ece257/www --with-pcre=/tmp/$(whoami)/ece257/www/pcre && make && make install
+
+++ Time to grab some food, maybe go to the Vending machine for some cheez'it's
+
+++ install mysql
+It is all ready build on /tmp/ece257-mysql
+
+++ start enjoying those cheez'it's.
+
+++ install php&
+cd ../php*
+./configure --prefix=/tmp/$(whoami)/ece257/www/php --with-apxs2=/tmp/$(whoami)/ece257/www/bin/apxs --with-mysql=/tmp/ece-257-mysql --with-mysqli=/tmp/ece-257-mysql/bin/mysql_config && make && make install
+
+++ you might want to Grab food at the cart
+
+++ configure the installs
+eng-svr-1:/home/u_broy/www>cp /tmp/$(whoami)/ece257/www/lib/mysql/libmysqlclient.so /tmp/$(whoami)/ece257/www/modules/
+
+
+++ create your database
+++ email fortier for a user name and pass
+
+./tmp/ece-257-mysql/bin/mysql -u [user] -p
+
+mysql> CREATE DATABASE [user]ece257;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> CREATE TABLE  students (
+    -> id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    -> name VARCHAR(50)
+    -> );
+
+mysql> INSERT INTO students (name) VALUES ('ben viall');
+Query OK, 1 row affected (0.03 sec)
+
+mysql>quit
+
+
+
+++Add this to your httpd.conf file
+<FilesMatch \.php$>
+	SetHandler application/x-httpd-php
+</FilesMatch>
+
+change line 40 from "Listen 80" to "Listen <last 4 digits of your SSID>"
+example SSID = 01043454: Listen 3454 (Make sure it is a high number) 
+
+
+++ start your webserver (doing it from this directory is inportant
+eng-svr-2:/home/u_broy/www/bin>./apachectl start
+
+

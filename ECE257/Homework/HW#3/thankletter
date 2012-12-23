@@ -1,0 +1,9 @@
+#!/bin/sh
+today=`date '+%b %d'`
+me="Daniel Noyes"
+for line in `cat giftlist.txt`
+do
+who=`echo $line | gawk -F, '{print $1}'`
+gift=`echo $line | gawk -F, '{print $2}'`
+sed -e "s/WWWWWW/$today/; s/XXXXXX/$who/; s/YYYYYY/$gift/; s/ZZZZZZ/$me/" thankyou.txt
+done

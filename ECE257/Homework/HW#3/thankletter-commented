@@ -1,0 +1,24 @@
+#!/bin/sh
+# puts the date [month day] in the string today
+today=`date '+%b %d'`
+# puts my name in the string me
+me="Daniel Noyes"
+# for loop
+# grabs the name from the giftlist.txt and puts in the string line
+for line in `cat giftlist.txt`
+# if there is data, it will process the next lines
+do
+# gawk[gnu awk] -F is a field separator
+# separates the first argument from line and put it in who
+# person you recieved the gift
+who=`echo $line | gawk -F, '{print $1}'`
+# separated the second argument from line and put it in gift
+# the name of the item the person gave you
+gift=`echo $line | gawk -F, '{print $2}'`
+# sed - stream editor for transfroming text[man page]
+# it will replace the WWWWWW...ZZZZZZ in thankyou.txt to the proper variable
+# then it will output them to the terminal
+# thankyou.txt - file where the thankyou speech comes from
+sed -e "s/WWWWWW/$today/; s/XXXXXX/$who/; s/YYYYYY/$gift/; s/ZZZZZZ/$me/" thankyou.txt
+echo "$who/$gift"
+done   # ends the for loop

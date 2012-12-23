@@ -1,0 +1,4 @@
+create table students ( id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, First_Name VARCHAR(50), Last_Name VARCHAR(50), Phone_Number  VARCHAR(50));
+
+use ece257
+INSERT INTO students VALUES (NULL , "Daniel", "N", "1-781-111-1111" );
