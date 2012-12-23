@@ -1,0 +1,53 @@
+MODULE Rock_Paper_Scissors
+
+TITLE 'Daniel Noyes Lab#6: Rock-Paper-Scissors - Rev 1   10-26-12 '
+
+
+declarations
+
+//input variables
+	Rock_Player_1, Paper_Player_1, Scissors_Player_1  pin 3..5  istype 'com';
+	Rock_Player_2, Paper_Player_2, Scissors_Player_2  pin 9..11 istype 'com';
+	Results pin 13 istype 'com';
+
+
+//Output variables
+	Win_Player_1 pin 17 istype 'com';
+	Win_Player_2 pin 18 istype 'com';
+ 		 Tie pin 19 istype 'com';
+	       Error pin 20 istype 'com';
+
+//refine the variables [dont want to type alot]
+
+	P1R=Rock_Player_1;
+	P1P=Paper_Player_1;
+	P1S=Scissors_Player_1;
+	P2R=Rock_Player_2;
+	P2P=Paper_Player_2;
+	P2S=Scissors_Player_2;
+	W1=Win_Player_1;
+	W2=Win_Player_2;
+	T=Tie;
+	R=Results;
+	ERR=Error;
+
+     	 X = .x.;
+
+
+truth_table ([ P1R, P1P, P1S, P2R, P2P, P2S, R ] -> [ W1, W2, T,  ERR ])
+             [  X ,  X ,  X ,  X ,  X ,  X , 0 ] -> [  0,  0, 0,   0  ] ;
+             [  X ,  X ,  X ,  X ,  X ,  X , 1 ] -> [  0,  0, 0,   1  ] ;
+             [  1 ,  0 ,  0 ,  1 ,  0 ,  0 , 1 ] -> [  0,  0, 1,   0  ] ; 
+             [  1 ,  0 ,  0 ,  0 ,  1 ,  0 , 1 ] -> [  0,  1, 0,   0  ] ; 
+             [  1 ,  0 ,  0 ,  0 ,  0 ,  1 , 1 ] -> [  1,  0, 0,   0  ] ; 
+             [  0 ,  1 ,  0 ,  1 ,  0 ,  0 , 1 ] -> [  1,  0, 0,   0  ] ; 
+             [  0 ,  1 ,  0 ,  0 ,  1 ,  0 , 1 ] -> [  0,  0, 1,   0  ] ; 
+             [  0 ,  1 ,  0 ,  0 ,  0 ,  1 , 1 ] -> [  0,  1, 0,   0  ] ; 
+             [  0 ,  0 ,  1 ,  1 ,  0 ,  0 , 1 ] -> [  0,  1, 0,   0  ] ; 
+             [  0 ,  0 ,  1 ,  0 ,  1 ,  0 , 1 ] -> [  1,  0, 0,   0  ] ; 
+             [  0 ,  0 ,  1 ,  0 ,  0 ,  1 , 1 ] -> [  0,  0, 1,   0  ] ; 
+
+
+
+END
+

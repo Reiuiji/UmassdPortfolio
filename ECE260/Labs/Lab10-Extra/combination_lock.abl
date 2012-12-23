@@ -1,0 +1,146 @@
+MODULE Combination_lock
+
+TITLE '	ECE 260 Lab 10 combination Lock
+      	 Daniel Noyes - Rev 1 12-12-1  '
+
+declarations
+
+" inputs:
+               [In3..In0] pin 8..11  ;	"4-Bit input
+                    Reset pin 1      ;	"Reset Switch
+                      Set pin 2      ;	"Set Switch 
+                    Enter pin 3      ;	"Enter Button
+
+" outputs:
+                   Unlock pin 44     ;	"Output high to indicate unlocked
+		 Set_Mode pin 43     ;  "Output high when in combination set mode
+		Sytem_set pin 42     ;  "Output high when you complete setting the combination
+	 [A3..A0] pin ISTYPE 'reg'   ;	"Combination one
+	 [B3..B0] pin ISTYPE 'reg'   ;	"Combination two
+	 [C3..C0] pin ISTYPE 'reg'   ;	"Combination three
+	 [D3..D0] pin ISTYPE 'reg'   ;	"Combination four
+         [s2..s0] pin ISTYPE 'reg'   ;	"state machine Unlock_state bits[encoded 3 bits]
+	 [t2..t0] pin ISTYPE 'reg'   ;  "state machine Set_Combination bits
+
+		    SET_1 pin 41     ;	"test set stage 1
+		    SET_2 pin 40     ;  "test set stage 2
+
+	Code_Input		= [In3..In0];
+	Code_1			= [A3..A0];
+	Code_2			= [B3..B0];
+	Code_3			= [C3..C0];
+	Code_4			= [D3..D0];
+	unlock_state		= [s2..s0];
+	Set_Combination		= [t2..t0];
+
+" Unlock states
+	idle	   		= 0;
+	unlock_Stage_1  	= 1;
+	unlock_Stage_2		= 2;
+	unlock_Stage_3		= 3;
+	Fully_unlocked  	= 4;
+	U5			= 5;
+	U6			= 6;
+	U7			= 7;
+
+" Set Combination states
+	Set_Combin_1		= 1;
+	Set_Combin_2		= 2;
+	Set_Combin_3		= 3;
+	Set_Combin_4		= 4;
+	Set_Finished		= 5;
+	S6			= 6;
+	S7			= 7;
+	
+
+
+  plsi property  'PULLUP ON' ;
+
+
+"State_machines
+
+state_diagram unlock_state
+
+	state idle:
+	   if (Code_Input == Code_1)*Enter then unlock_Stage_1;
+	   else idle;
+
+	state unlock_Stage_1:
+	   if (Code_Input == Code_2)*Enter then unlock_Stage_2;
+	   if (Code_Input != Code_2)*Enter then idle;
+	   else unlock_Stage_1;
+
+	state unlock_Stage_2:
+	   if (Code_Input == Code_3)*Enter then unlock_Stage_3;
+	   if (Code_Input != Code_3)*Enter then idle;
+	   else unlock_Stage_2;
+
+	state unlock_Stage_3:
+	   if (Code_Input == Code_4)*Enter then Fully_unlocked;
+	   if (Code_Input != Code_4)*Enter then idle;
+	   else unlock_Stage_3;
+
+	state Fully_unlocked:
+	   if Enter then idle;
+	   else Fully_unlocked;
+
+	state U5: goto idle;
+	state U6: goto idle;
+	state U7: goto idle;
+
+	
+state_diagram Set_Combination
+
+	state idle:
+	   if Set*Enter then Set_Combin_1;
+	   else idle;
+
+	state Set_Combin_1:
+	   if Set  then Set_Combin_2;
+	   else idle;
+
+
+	state Set_Combin_2:
+	   if Set then Set_Combin_3;
+	   else idle;
+
+	state Set_Combin_3:
+	   if Set then Set_Combin_4;
+	   else idle;
+
+	state Set_Combin_4:
+	   if Set then Set_Finished;
+	   else idle;
+
+	state Set_Finished:
+	   if Set then idle;
+	   else idle;
+
+	state S6: goto idle;
+	state S7: goto idle;
+	
+
+equations
+
+     [s2..s0].clk = Enter;
+    [s2..s0].aclr = Reset;
+          Unlock  = (unlock_state == Fully_unlocked);
+
+"Set Combination
+
+     [t2..t0].clk = Enter;
+    [t2..t0].aclr = Reset;
+         Set_Mode = (Set_Combination != idle);
+	Sytem_set = (Set_Combination == Set_Finished);
+
+
+	when (Set_Combination == Set_Combin_1) then Code_Input = Code_1;
+	when (Set_Combination == Set_Combin_2) then Code_Input = Code_2;
+	when (Set_Combination == Set_Combin_3) then Code_Input = Code_3;
+	when (Set_Combination == Set_Combin_4) then Code_Input = Code_4;
+	    SET_1 = (Set_Combination == Set_Combin_1);
+	    SET_2 = (Set_Combination == Set_Combin_2);
+
+
+END
+

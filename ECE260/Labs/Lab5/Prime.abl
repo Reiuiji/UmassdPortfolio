@@ -1,0 +1,47 @@
+MODULE Prime_Number
+
+TITLE 'Prime Number - Rev 0   10-19-12'
+
+"inputs:
+
+                         iclk pin  1 ;
+
+declatations
+
+        bit_3,bit_2,Bit_1,Bit_0 pin istype 'reg'  ;
+
+//prime numbers: 2 3 5 7 11 13
+
+equations
+
+	Alarm =   !bit_3 & !bit_2 & bit_1 & !bit_0
+            # !bit_3 & !bit_2 & bit_1 & bit_0
+            # !bit_3 & bit_2 & !bit_1 & bit_0
+            # !bit_3 & bit_2 & bit_1 & bit_0
+            # bit_3 & !bit_2 & bit_1 & bit_0
+            # bit_3 & bit_2 & !bit_1 & bit_0;
+
+
+//Truth Table Alarm
+
+truth_table ([bit_3, bit_2, bit_1, bit_0] -> [ Is_Prime ])
+             [  0,      0,      0,      0 ] -> [ 0 ] ; "0
+             [  0,      0,      0,      1 ] -> [ 0 ] ; "1
+             [  0,      0,      1,      0 ] -> [ 1 ] ; "2 !bit_3 & !bit_2 & bit_1 & !bit_0
+             [  0,      0,      1,      1 ] -> [ 1 ] ; "3 !bit_3 & !bit_2 & bit_1 & bit_0
+             [  0,      1,      0,      0 ] -> [ 0 ] ; "4
+             [  0,      1,      0,      1 ] -> [ 1 ] ; "5 !bit_3 & bit_2 & !bit_1 & bit_0
+             [  0,      1,      1,      0 ] -> [ 0 ] ; "6
+             [  0,      1,      1,      1 ] -> [ 1 ] ; "7 !bit_3 & bit_2 & bit_1 & bit_0
+             [  1,      0,      0,      0 ] -> [ 0 ] ; "8
+             [  1,      0,      0,      1 ] -> [ 0 ] ; "9
+             [  1,      0,      1,      0 ] -> [ 0 ] ; "A
+             [  1,      0,      1,      1 ] -> [ 1 ] ; "B bit_3 & !bit_2 & bit_1 & bit_0
+             [  1,      1,      0,      0 ] -> [ 0 ] ; "C
+             [  1,      1,      0,      1 ] -> [ 1 ] ; "D bit_3 & bit_2 & !bit_1 & bit_0
+             [  1,      1,      1,      0 ] -> [ 0 ] ; "E
+             [  1,      1,      1,      1 ] -> [ 0 ] ; "F
+
+
+END
+
