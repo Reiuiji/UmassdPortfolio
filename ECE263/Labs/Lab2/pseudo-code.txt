@@ -1,0 +1,31 @@
+;psuedo code
+
+;program 1
+
+send data partterns to prta (PTA) at $0000
+*examine with a logic analyzer
+
+write $FF to portA DDRA at $0002 *for bits of port A will be used for output
+
+bit patten $00,$55,$AA,$FF
+write 4 bytes $100 times
+
+	initilize A -> $FF
+Store A to DDRA
+Initialize Register X -> 
+
+
+;program 2
+
+write to a printer
+send data from a Ram block
+
+
+;meory map
+PTA		$0000
+PTB		$0001
+DDRA	$0002
+DDRB	$0003
+RAM		$1000
+RAM_END	$3FFF
+Flash	$C000
