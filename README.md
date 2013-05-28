@@ -1,5 +1,4 @@
 # UmassdPortfolio
-=================
 
 Collection of all work(Code) I accomplished at University of Massachusetts Dartmouth
 
