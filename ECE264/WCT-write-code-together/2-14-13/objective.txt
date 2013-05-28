@@ -1,0 +1,23 @@
+Say we have a class to represent a point in a 2-dimensional plane
+
+What data should this class hold?
+	This class should hold the value of the point, location(x,y),
+
+What should the constructor look like?
+	   "Point();
+		Point(double X, double Y);"
+	in the Point.h file
+
+How would we write the mutator function(s)?
+	   "void setPoint(double X, double Y);"
+
+
+How would we write the accessor function(s)?
+	   "double getPoint();"
+
+
+
+//WCT code
+Point.h
+Point.cpp
+
