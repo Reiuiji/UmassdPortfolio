@@ -1,0 +1,56 @@
+[dnoyes@newjersey ~]$ echo "Lab one"
+Lab one
+[dnoyes@newjersey ~]$ ls
+Desktop  Documents  Downloads  Music  Pictures  Public  Templates  Videos
+[dnoyes@newjersey ~]$ mkdir Documents/Lab1
+[dnoyes@newjersey ~]$ cd Documents/Lab1/
+[dnoyes@newjersey Lab1]$ cd ..
+[dnoyes@newjersey Documents]$ pwd
+/home/x4/dnoyes/Documents
+[dnoyes@newjersey Documents]$ cp Lab1/ Lab2/
+cp: omitting directory `Lab1/'
+[dnoyes@newjersey Documents]$ cp -r Lab1/ Lab2/
+[dnoyes@newjersey Documents]$ ls
+CIS370  Lab1  Lab2
+[dnoyes@newjersey Documents]$ mv Lab2/ Lab3/
+[dnoyes@newjersey Documents]$ ls
+CIS370  Lab1  Lab3
+[dnoyes@newjersey Documents]$ echo "tutorialtwo" > Lab1/test
+[dnoyes@newjersey Documents]$ cat Lab1/test | grep two
+tutorialtwo
+[dnoyes@newjersey Documents]$ grep two Lab1/test
+tutorialtwo
+[dnoyes@newjersey Documents]$ ls *
+CIS370:
+jplante-page
+
+Lab1:
+test
+
+Lab3
+[dnoyes@newjersey Documents]$ ls -l
+total 12
+drwxrwxr-x. 3 dnoyes dnoyes 4096 Sep 10 15:53 CIS370
+drwxrwxr-x. 2 dnoyes dnoyes 4096 Sep 10 16:08 Lab1
+drwxrwxr-x. 2 dnoyes dnoyes 4096 Sep 10 16:05 Lab3
+[dnoyes@newjersey Documents]$ chmod 700 Lab1/
+[dnoyes@newjersey Documents]$ ls -l
+total 12
+drwxrwxr-x. 3 dnoyes dnoyes 4096 Sep 10 15:53 CIS370
+drwx------. 2 dnoyes dnoyes 4096 Sep 10 16:08 Lab1
+drwxrwxr-x. 2 dnoyes dnoyes 4096 Sep 10 16:05 Lab3
+[dnoyes@newjersey Documents]$ chmod 775 Lab1/
+[dnoyes@newjersey Documents]$ time sleep 50 &
+[1] 7178
+[dnoyes@newjersey Documents]$ ps aux | grep sleep
+dnoyes    7179  0.0  0.0   4064   496 pts/4    S    16:08   0:00 sleep 50
+dnoyes    7181  0.0  0.0   4356   728 pts/4    S+   16:09   0:00 grep sleep
+[dnoyes@newjersey Documents]$ kill -9 7179
+[dnoyes@newjersey Documents]$ bash: line 22:  7179 Killed                  sleep 50
+
+real	0m14.336s
+user	0m0.001s
+sys	0m0.001s
+
+[1]+  Exit 137                time sleep 50
+

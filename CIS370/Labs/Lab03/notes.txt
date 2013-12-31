@@ -1,0 +1,65 @@
+Lab3 notes
+
+program are not the same as a process
+
+program allow to create multiple process
+
+ProcessID(PID)
+
+$ps
+$ps -e //everything
+
+#include <unixstd.>
+#include <sys/type.h>
+
+pid.t getpid();
+
+//example
+pid.t myPID;
+myPID = getpid();
+print(myPID);
+
+
+fork()
+
+print("Hello");
+fork();
+print("World");
+
+output: Hello World World
+
+
+print("Hello");
+fork();
+print("World");
+fork();
+print("Surplus");
+
+output: Hello World World Surplus Surplus Surplus Surplus
+
+
+//fork bomb
+while(true)
+{
+	fork();
+}
+
+fork returns two values
+pid_t forkval = fork();
+
+//example
+pid_t childPID;
+pid_t pid;
+int status;
+pid = fork();
+
+if(pid ==0)
+{
+	childPID = getpid()
+	exit();
+}
+esle if(pid>0)
+{
+	childPID = wait($status);
+}
+

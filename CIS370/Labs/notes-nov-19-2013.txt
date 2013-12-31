@@ -1,0 +1,81 @@
+What will be on the bonus lab
+there wil be 10 quesitons but some are mash together
+
+Lab#2 - Files |2 questions
+fd = open()
+read() - return size
+write()
+close()
+
+O_CREATE
+O_RDONLY
+O_WROL
+O_RDRW
+0_EXCL
+mode = 0644
+
+lseek()
+*seek.clr
+
+Lab#3+4 - process management |4 questions
+fork
+execl
+execv
+//should know what each does but done need to code
+
+exit(passing info)
+//how wait work and the difference between both
+wait() 
+waitpid()
+
+//need to know what happeneds when you call fork, children, grandchildren and
+//so on
+
+Lab#5 message queues 1 question
+id? = msgget(?)
+msgsend(?) //how each works and affect the queue
+msgrecv(?)
+msgctl(?) < remove queue
+
+//request on different types of messages
+[string msg][long type]
+
+lab 6 - threads 2 questions
+pthread_t vs pid_t//for and how is it different
+
+pthread.create(...)
+pthread.exit() vs. exit()
+pthread.join(...)
+
+//knows what each piece of code function on the system
+
+//know whete the variables are share or copied
+different ID's? for threads
+
+Lab 7 - signals 1 question
+struct sigaction
+//what each part if for
+
+sigaction()
+kill(?)
+
+lab #8 - semaphores 1 question
+
+ID = semget()
+systemcto()
+
+what operationswork on sets vs semaphores
+
+serval >= 0
+sembu struct -> sem.op ?
+semop()
+
+lab#9 pipes 1 question
+pipe() p[2]
+
+write
+read
+close
+//what happens when you close the pipe
+which pipe to write or read?
+

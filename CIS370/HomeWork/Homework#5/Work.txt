@@ -1,0 +1,19 @@
+[dnoyes]: /tmp/CIS370HW1 $ javac Driver.java 
+[dnoyes]: /tmp/CIS370HW1 $ java Driver 1
+The sum of 1 is 1
+The Factorial of 1 is 1
+[dnoyes]: /tmp/CIS370HW1 $ java Driver 2
+The sum of 2 is 3
+The Factorial of 2 is 2
+[dnoyes]: /tmp/CIS370HW1 $ java Driver 3
+The sum of 3 is 6
+The Factorial of 3 is 6
+[dnoyes]: /tmp/CIS370HW1 $ java Driver 4
+The sum of 4 is 10
+The Factorial of 4 is 24
+[dnoyes]: /tmp/CIS370HW1 $ java Driver 5
+The sum of 5 is 15
+The Factorial of 5 is 120
+[dnoyes]: /tmp/CIS370HW1 $ java Driver 6
+The sum of 6 is 21
+The Factorial of 6 is 720

@@ -1,0 +1,53 @@
+Daniel Noyes
+Lab 1:
+Exercise 1a: Make another directory inside the unixstuff directory called backups.
+
+[dnoyes@newjersey Lab1]$ mkdir unixstuff
+[dnoyes@newjersey Lab1]$ cd unixstuff/
+[dnoyes@newjersey unixstuff]$ mkdir backups
+
+Exercise 1b: Use the commands cd, ls and pwd to explore the file system.
+
+[dnoyes@newjersey unixstuff]$ ls
+backups
+[dnoyes@newjersey unixstuff]$ cd backups/
+[dnoyes@newjersey backups]$ pwd
+/home/x4/dnoyes/Documents/Lab1/unixstuff/backups
+
+Exercise 2a: Create a backup of your science.txt file by copying it to a file called science.bak
+
+[dnoyes@newjersey unixstuff]$ mv science.txt science.bak
+
+Exercise 2b: Create a directory called tempstuff using mkdir , then remove it using the rmdir command.
+
+[dnoyes@newjersey unixstuff]$ mkdir tempstuff
+[dnoyes@newjersey unixstuff]$ rmdir tempstuff/
+
+Exercise 3a: Using the above method, create another file called list2 containing the following fruits: orange, plum, mango, grapefruit. Read the contents of list2.
+
+[dnoyes@newjersey unixstuff]$ cat >list2
+orange
+plum
+mango
+grapefruit
+
+Exercise 3b: Using pipes, display all lines of list1 and list2 containing the letter 'p', and sort the result.
+
+[dnoyes@newjersey unixstuff]$ cat list1 list2 | sort | grep p
+apple
+grapefruit
+pear
+plum
+
+Exercise 5a: Try changing access permissions on the file science.txt and on the directory backups
+Use ls -l to check that the permissions have changed.
+
+
+[dnoyes@newjersey backups]$ ls -l
+total 20
+-rwxr-xr-x. 1 dnoyes dnoyes 16805 Aug 31  2010 science.bak
+[dnoyes@newjersey backups]$ chmod 700 science.bak 
+[dnoyes@newjersey backups]$ ls -l
+total 20
+-rwx------. 1 dnoyes dnoyes 16805 Aug 31  2010 science.bak
+[dnoyes@newjersey backups]$ chmod 755 science.bak 
