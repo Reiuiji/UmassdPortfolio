@@ -19,6 +19,10 @@ Courses
 | [PHY 112](PHY112)| Physics for Science and Engineering II – Electricity and Magnetism | S3-Fall-2012
 | [ECE 263](ECE263)| Embedded System Design | S4-Spring-2013
 | [ECE 266](ECE264)| Object Oriented Software Development | S4-Spring-2013
+| [CIS 370](CIS370)| Design of Operating Systems | S5-Fall-2013
+| [ECE 320](ECE320)| Discrete-Time Linear Systems | S5-Fall-2013
+
+
 
 
 Usage

@@ -1,0 +1,6 @@
+[submodule "ECE264/Outer-World"]
+	path = ECE264/Outer-World
+	url = https://github.com/Reiuiji/Outer-World.git
+[submodule "CIS370/ProcSim"]
+	path = CIS370/ProcSim
+	url = https://github.com/Reiuiji/ProcSim
