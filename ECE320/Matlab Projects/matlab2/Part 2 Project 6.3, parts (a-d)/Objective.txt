@@ -1,0 +1,5 @@
+6.3 Basic Problems:
+
+(a). For the filter with impulse response h, compute the frequency response at 1024 evenly spaced samples in w using freqz and store these values in H. Plot the magnitude of H and confirm that it appozimates the desired frequency response magniture |H_id(e^jw)|. Also, plot the ipulse response h using stem. Analytically calculate the impulse response of the ideal lowpass filter specified by Eq(6.9) Is h similar in form to the impulse response of the ideal lowpass filter?
+
+(b). 

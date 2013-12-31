@@ -1,0 +1,10 @@
+A common technique used to design frequency-selective filters is to start with a prototype lowpass filter and transform that filter's impulse response to obtain a filter with the desired frequency response. In thesis exercise, you will learn how to manipulate a finite-length impulse response (FIR) lowpass filter to get a highpass filter, a bandpass filter, a bandstop filter, and several multi-band filters. The prototype lowpass filter you will be working with is an approximation of the ideal lowpass filter with a cutoff frequency of $\pi/5$. the frequency response of the ideal filter is 
+\\
+\[ H_{id}(e^{j \omega}) = \left\{
+  \begin{array}{l l}
+    1 & \quad \text{$ |\omega| < \pi/5$,} \\
+    0 & \quad \text{$\pi/5 \le |\omega| \le \pi$.}
+  \end{array} \right.\]
+  
+
+The impulse response for the prototype FIR filter whose frequency response magnitude approximates $H_{id}(e^{j\omega}) $ is in the data file protoh.mat. this file provided in the Computer Explorations Toolbox. If this file is already in a directory in your MATLABPATH, you should be able to load it into MATLAB by typing load protoh. The variable h in the MATLAB workspace will be the impulse response of the prototype filter you will use as the basis for designing other filters in this exercise \\

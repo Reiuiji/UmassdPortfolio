@@ -1,0 +1,11 @@
+Note that plot(t,x) displays a continueous-time signal given the samples in x, using straight lines to interpolate between sample values. While this interpolation si not generally equal to the bandlimited reconstruction which follows from the smapling theorem, it can often be a ver good approximation.
+
+To compute samples of the continuous-time Fourier transform of the bandlimited reconstruction $x_r(t)$, use the following function:
+
+%Matlab function thingy
+function [X,f] = ctfts(x,T)
+N=length(x);
+X = fftshift(fft(x,N))*(2*pi/N);
+f = linspace(-1,1-1/N,N)/(2*T);
+
+This function uses fft to calculate the Fourier transform of the reconstructed signal. The M-file ctfts.m is provided in the Cmoputer Explorations Toolbox, and should be placed in your MATLABPATH.

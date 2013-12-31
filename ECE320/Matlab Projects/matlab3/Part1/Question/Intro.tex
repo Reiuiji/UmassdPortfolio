@@ -1,0 +1,13 @@
+\begin{LARGE}
+  \textbf{7.1: Aliasing due to Undersampling}
+\end{LARGE}
+
+\hspace*{\fill}
+
+This exercise covers the effects of aliasing due to sampling on signals reconstructed by bandlimited interpolation. If a continuous-time signal $ x(t)$ is sampled every T seconds, then its samples form the discrete-time sequence $x[n] = x(nT)$. The Nyquist sampling theorem states that if $x(t)$ has bandwidth less than $\Omega_s = 2\pi/T$, i.e., $X(j\Omega) = 0$ for $|\Omega| > \Omega_s/2$, then $x(t)$ can be completely reconstructed from its samples $x(nT)$. The bandlimited interpolation or signal reconstruction is most easily visualized by first multiplying $x(t)$ by and impulse train 
+
+\begin{center}
+$ x_p(t) = \sum\limits_{n=-\infty}^\infty x(nT) \delta (t-nT) $.
+\end{center}
+  
+The signal $x(t)$ can be recovered from $x_p(t)$ by filtering $x_p(t)$ with an ideal lowpass filter with cutoff frequency $ \Omega_s/2 $. Define $x_r(t) $ to be the reconstructed signal given by lowpass filtering $x_p(t)$. If the bandwidth of $x(t) $ is greater than $\Omega_s$, then the samples $x(nT)$ do not completely determine $x(t)$, and $x_r(t)$ will not generally be queal to $x(t)$. In the following problems, you will examine the effects of undersampling a pure sinusoid and a chirp signal.
