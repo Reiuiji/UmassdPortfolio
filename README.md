@@ -21,6 +21,11 @@ Courses
 | [ECE 266](ECE264)| Object Oriented Software Development | S4-Spring-2013
 | [CIS 370](CIS370)| Design of Operating Systems | S5-Fall-2013
 | [ECE 320](ECE320)| Discrete-Time Linear Systems | S5-Fall-2013
+| [ECE 321](ECE321)| Continuous-Time Linear Systems | S6-Spring-2014
+| [ECE 368](ECE368)| Digital Design | S6-Spring-2014
+| [ECE 369](ECE369)| Computer Networks | S6-Spring-2014
+| [ECE 384](ECE384)| Random Signals and Noise | S6-Spring-2014
+| [ECE 591](ECE591)| Cyber Threats and Security Management | S6-Spring-2014
 
 
 
