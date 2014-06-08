@@ -1,0 +1,3 @@
+http://www.mathworks.com/matlabcentral/answers/48717-create-a-piece-of-music-using-matlab
+http://courses.washington.edu/matlab1/Matlab4BS_c7.htm
+http://www.lifeorange.com/MATLAB/MATLAB_music.htm

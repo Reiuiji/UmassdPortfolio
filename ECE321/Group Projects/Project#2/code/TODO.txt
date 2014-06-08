@@ -1,0 +1,24 @@
+Here is Where anything needs to get done
+========================================
+[*] Part 1 :
+{
+     [*] A : 
+     [*] B : 
+     [*] C : 
+     [*] D : 
+}
+[*] Part 2 :
+{
+     [*] Clarinet : 
+     [*] Piano : 
+}
+[ ] Write Up :
+{
+     [ ] Questions : 
+     [ ] Project report : 
+}
+
+
+Notes:
+Ask Dr.Payton about Part 1 D on the "should have an exponential decay
+shape that should decay by 5 time constants at 2 sec"
