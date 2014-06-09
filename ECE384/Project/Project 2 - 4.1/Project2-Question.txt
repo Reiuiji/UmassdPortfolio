@@ -1,0 +1,20 @@
+*****DUE APRIL 12 *****
+
+Project 4.1
+The objective of this project is to estimate the mean and variance of random variables of various kinds. This project follows Project 3.1 of Chapter 3.
+
+1. For each type of random variable described in Project 3.1 Step 1, calculate the theoretical mean and variance.
+
+2. Generate the random sequences as specified in Project 3.1 Step 1.
+
+3. Estimate the mean and the variance of these random variables using the following formulas:
+
+    E (X) approx M_n = 1 over n sum from{i = 1} to n { X_i}
+    Var[X] approx %SIGMA_n^2 = 1 over n sum from {i = 1} to n {(X_i - M_n) ^2}
+	*See "Formula for part 3.odf"*
+
+(these formulas are discussed in Chapter 6.)
+
+4. Repeat Steps 2 and 3 by increasing the sequence length n to (a) 20,000, and (b) 40,000.
+
+5. Compare the estimated values in each case with the corresponding theoretical values.

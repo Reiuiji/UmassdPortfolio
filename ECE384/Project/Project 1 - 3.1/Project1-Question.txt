@@ -1,0 +1,29 @@
+*****DUE MARCH 14 *****
+
+Project 3.1
+This Project requires writing computer code to generate random variabale of various kinds and measure their probabitly distrbutions.
+
+1. Generate a sequence of each of the follow types of random variables; each sequence should be at least 10,000 points long.
+
+(a) A binomial random variable. Let the number of Bernoulli trials be n = 12. Recall that the binomial random variable is defined as the number of 1s in n trials for a Bernoulli (binary) random variable. let the parameter p in the Bernoulli trials be p = 0.5109.
+
+(b) A poisson random variable as a limiting case of the binomial random variable with p = 0.0125 or less and n = 80 or more while maintaining %alpha = np =1.
+
+(c) A type 1 geometric random variable with parameter p = 0.09.
+
+(d) A (continous) uniform random variable in the range [-2, 5].
+
+(e) A gaussian random variable with mean %mu = 1.3172 and variance %sigma^2 = 1.9236.
+
+(f) An exponential random variable with parameter %lamda = 1.37.
+
+
+2. Estimate the CDF and PDF or PMF as appropriate and plot these functions next to their theoretical counterparts. Compare and comment on the results obtained.
+
+MATLAB programming notes:
+
+To generate uniform and Gaussian random variables in Step 1(d) and 1(e) , use the MATLAB functions "rand" and "randn" respectively with an appropriate transformation.
+
+To generate an exponential random variable, you may use the function "expon" from the software package from this book. This function uses the "transformation" method to generate the random variable.
+
+In Step 2 you may use the functions "pmfcdf" and "pmfpdf" from the software package.

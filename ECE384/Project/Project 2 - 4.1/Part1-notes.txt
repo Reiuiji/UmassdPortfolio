@@ -1,0 +1,45 @@
+Part 4.1.1
+========================================
+* math formulas are described in Latex
+
+A : [binomial random variable]
+
+    Notation:   B(n,p)
+    PMF:        (n over k)*p^k*(1-p)^(n-k)
+    CDF:        I_{1-p}(n - k, 1 + k)
+    Mean:       np
+    Variance:   np(1 - p)
+
+B : [poisson random variable]
+
+    Notation:   Pois(\lambda)
+    PMF:        \frac{\lambda^k}{k!} e^{-\lambda}
+    CDF:        e^{-\lambda} \sum_{i=0}^{\lfloor k\rfloor} \frac{\lambda^i}{i!}\ 
+    Mean:       \lambda
+    Variance:   \lambda
+
+C : [geometric random variable (type 1)]
+
+    PMF:        p(1-p)^(k-1)
+    CDF:        1-(1-p)^k
+    Mean:       1/p
+    Variance:   (1-p)/(p^2)
+
+D : [uniform random variable (continous)]
+
+    Notation:   unif(a,b)
+    Mean:       (1/2)(a+b)
+    Variance:   (1/12)(b-a)^2
+
+E : [gaussian random variable]
+
+    Notation:   N(\mu , \sigma^2)
+    Mean:       \mu
+    Variance:   \sigma^2
+
+F : [exponential random variable]
+
+    PDF:        \lamda E^(-x*\lamda)
+    CDF:        1 - e^(-\lamda*x)
+    Mean:       (\lamda)^-1
+    Variance:   (\lamda)^-2
