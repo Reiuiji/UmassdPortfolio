@@ -1,0 +1,35 @@
+#generic pins
+NET "CLR" LOC = K17;
+NET "CLK" LOC = C9;
+
+#Keyboards
+NET "PS_CLK" CLOCK_DEDICATED_ROUTE = FALSE;
+NET "PS_CLK" LOC = G14;
+NET "PS_DATA" LOC = G13;
+
+#INPUT
+NET "READSIGNAL" LOC = N17;
+NET "RISC_WE" LOC = H18;
+NET "SEL_WE[0]" LOC = L14;
+NET "SEL_WE[1]" LOC = L13;
+NET "R1" LOC = H14;
+NET "VS" LOC = F14;
+NET "B1" LOC = G15;
+NET "G1" LOC = H15;
+NET "HS" LOC = F15;
+
+NET "PC_OUT[0]" LOC = F12;
+NET "PC_OUT[1]" LOC = E12;
+NET "PC_OUT[2]" LOC = E11;
+NET "PC_OUT[3]" LOC = F11;
+NET "PC_OUT[4]" LOC = C11;
+NET "PC_OUT[5]" LOC = D11;
+NET "PC_OUT[6]" LOC = E9;
+NET "PC_OUT[7]" LOC = F9;
+
+NET "SEL_WE[0]" LOC = L13;
+NET "SEL_WE[1]" LOC = L14;
+
+# PlanAhead Generated physical constraints 
+
+NET "RESET" LOC = H13;

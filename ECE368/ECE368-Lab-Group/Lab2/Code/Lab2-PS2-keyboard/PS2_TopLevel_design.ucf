@@ -1,0 +1,52 @@
+## School: University of Massachusetts Dartmouth
+## Department: Computer and Electrical Engineering
+## Class: ECE 368 Digital Design
+## Engineer: Daniel Noyes
+##				 Massarrah Tannous
+##
+## Create Date:    SPRING 2014
+##
+#
+# Period constraint for 50MHz operation
+NET "CLOCK" TNM_NET = "CLOCK";
+TIMESPEC TS_CLOCK = PERIOD "CLOCK" 40 ns HIGH 50 %;
+#OFFSET = IN 10 ns BEFORE "CLOCK";
+#OFFSET = OUT 10 ns AFTER "CLOCK";
+#
+#
+# Soldered 50MHz Clock.
+NET "CLOCK" LOC = "C9";
+
+##
+## LED PINS
+## *right to left
+##
+NET "LED<0>" LOC = "F12" ;	
+NET "LED<1>" LOC = "E12";
+NET "LED<2>" LOC = "E11";
+NET "LED<3>" LOC = "F11" ;
+NET "LED<4>" LOC = "C11";
+NET "LED<5>" LOC = "D11";
+NET "LED<6>" LOC = "E9" ;
+NET "LED<7>" LOC = "F9" ;
+
+##
+## PS2 PINS
+##
+NET "RESET"  LOC = "k17" | IOSTANDARD = LVTTL | PULLDOWN ;
+NET "PS2_DATA" LOC = "G13" | IOSTANDARD = LVCMOS33 ;
+NET "PS2_CLOCK" LOC = "G14" | IOSTANDARD = LVCMOS33 | CLOCK_DEDICATED_ROUTE = FALSE;
+
+##
+## LCD DISPLAY PINS
+##
+NET "SF_CE0"  LOC = "D16" | IOSTANDARD = LVCMOS33 | DRIVE = 4 | SLEW = SLOW ;
+NET "LCD_E"   LOC = "M18" | IOSTANDARD = LVCMOS33 | DRIVE = 4 | SLEW = SLOW ;
+NET "LCD_RS"  LOC = "L18" | IOSTANDARD = LVCMOS33 | DRIVE = 4 | SLEW = SLOW ;
+NET "LCD_RW"  LOC = "L17" | IOSTANDARD = LVCMOS33 | DRIVE = 4 | SLEW = SLOW ;
+# The LCD four-bit data interface is shared with the StrataFlash.
+NET "SF_D<0>" LOC  = "R15" | IOSTANDARD = LVCMOS33 | DRIVE = 4 | SLEW = SLOW ;
+NET "SF_D<1>" LOC  = "R16" | IOSTANDARD = LVCMOS33 | DRIVE = 4 | SLEW = SLOW ;
+NET "SF_D<2>" LOC = "P17" | IOSTANDARD = LVCMOS33 | DRIVE = 4 | SLEW = SLOW ;
+NET "SF_D<3>" LOC = "M15" | IOSTANDARD = LVCMOS33 | DRIVE = 4 | SLEW = SLOW ; 
+

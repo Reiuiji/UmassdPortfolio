@@ -1,0 +1,139 @@
+---- ECE 368 PS2 Keyboard Testbench
+--
+--library IEEE;
+--use IEEE.STD_LOGIC_1164.ALL;
+--use IEEE.STD_LOGIC_ARITH.ALL;
+--use IEEE.STD_LOGIC_UNSIGNED.ALL;
+--use work.all;
+--
+--entity ps2_keyboard_tb is
+--end ps2_keyboard_tb;
+--
+--architecture Behavioral of ps2_keyboard_tb is
+--
+--COMPONENT PS2controller
+--   port(
+--	Reset :	in std_logic;
+--	PS2_CLOCK : in std_logic;
+--	ps2_data	: in std_logic;
+--	keycode : out std_logic_vector(7 downto 0);
+--	valid : out std_logic
+--   );
+--end COMPONENT PS2controller;
+--	
+----	signal Rst, RESET, Ps2clock, Ps2data, vld, enable: STD_LOGIC;
+----	signal output: STD_LOGIC_VECTOR(7 downto 0);
+--
+--begin
+----	U1: PS2controller 
+----	port map (
+----		Reset=>Rst,  
+----		PS2_CLOCK => PS2_CLOCK, 
+----		ps2_data => Ps2data, 
+----		keycode => Output,
+----		valid => vld
+----	);
+----	
+----	
+----	process
+----	begin
+----		report "starting PS2 Keyboard testing" severity warning;
+----		Reset <= '1'; 	--test reset
+----		Ps2clock <= '1';
+----		Ps2data <= '1';
+----		wait for 200ns;
+----
+----		Reset <= '0'; --enable data output
+----		Enable <= '1';
+----		wait for 200ns;
+----		
+----		-- Simulate pressing the spacebar (Scancode: 0x29)
+----		
+----		-- Start bit
+----		report "Sending Start Bit" severity warning;
+----		Ps2data <= '0';
+----		wait for 200ns;
+----		Ps2clock <= '0';
+----		wait for 200ns;
+----		
+----		-- Send 0x29 LSB first
+----		report "Sending Data" severity warning;
+----		Ps2clock <= '1';
+----		Ps2data <= '1';		-- bit 7
+----		wait for 200ns;
+----		Ps2clock <= '0';
+----		wait for 200ns;
+----		
+----		Ps2clock <= '1';
+----		Ps2data <= '0';		-- bit 6
+----		wait for 200ns;
+----		Ps2clock <= '0';
+----		wait for 200ns;
+----		
+----		Ps2clock <= '1';
+----		Ps2data <= '0';		-- bit 5
+----		wait for 200ns;
+----		Ps2clock <= '0';
+----		wait for 200ns;
+----		
+----		Ps2clock <= '1';
+----		Ps2data <= '1';		-- bit 4
+----		wait for 200ns;
+----		Ps2clock <= '0';
+----		wait for 200ns;
+----		
+----		Ps2clock <= '1';
+----		Ps2data <= '0';		-- bit 3
+----		wait for 200ns;
+----		Ps2clock <= '0';
+----		wait for 200ns;
+----		
+----		Ps2clock <= '1';
+----		Ps2data <= '1';		-- bit 2
+----		wait for 200ns;
+----		Ps2clock <= '0';
+----		wait for 200ns;
+----		
+----		Ps2clock <= '1';
+----		Ps2data <= '0';		-- bit 1
+----		wait for 200ns;
+----		Ps2clock <= '0';
+----		wait for 200ns;
+----		
+----		Ps2clock <= '1';
+----		Ps2data <= '0';		-- bit 0
+----		wait for 200ns;
+----		Ps2clock <= '0';
+----		wait for 200ns;
+----		
+----		report "Sending Parity Bit" severity warning;
+----		Ps2clock <= '1';
+----		Ps2data <= '1';		-- parity bit
+----		wait for 200ns;
+----		Ps2clock <= '0';
+----		wait for 200ns;
+----		
+----		-- Send stop bit
+----		Ps2clock <= '1';
+----		Ps2data <= '1';
+----		wait for 200ns;
+----		Ps2clock <= '0';
+----		wait for 200ns;
+----		
+----		Ps2clock <= '1';
+----		Ps2data <= '1';
+----		
+----		wait for 200ns;
+----		
+----		assert (Output = "100101001") 
+----			report "Failed Test. Expected 0x129."
+----			severity error;
+----		assert (vld = '1')
+----			report "Failed test. Expected 1" severity error;
+----		
+----		report "Test sequence completed." 
+----		severity note;
+----		wait;
+----
+----	end process;
+--end;

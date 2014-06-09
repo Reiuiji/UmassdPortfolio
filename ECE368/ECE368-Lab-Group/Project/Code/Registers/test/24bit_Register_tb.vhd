@@ -1,0 +1,127 @@
+------------------------------------------------------------
+-- School:     University of Massachusetts Dartmouth      --
+-- Department: Computer and Electrical Engineering        --
+-- Class:      ECE 368 Digital Design                     --
+-- Engineer:   Daniel Noyes                               --
+--             Massarrah Tannous                          --
+------------------------------------------------------------
+--
+-- Create Date:    Spring 2014
+-- Module Name:    24bit_Register_Test_Bench
+-- Project Name:   UMD-RISC 24
+-- Target Devices: Spartan-3E
+-- Tool versions:  Xilinx ISE 14.7
+--
+-- Description:
+--      Test the 24 bit register
+--
+-- Notes:
+--      [None]
+--
+-- Revision: 
+--      0.01  - File Created
+--      0.02  - [Insert]
+--
+-- Additional Comments: 
+--      [Insert Comments]
+-- 
+-----------------------------------------------------------
+library IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+USE ieee.std_logic_unsigned.all;
+USE ieee.numeric_std.ALL;
+USE work.UMDRISC_pkg.ALL;
+
+entity RegR_tb is
+end RegR_tb;
+
+architecture Behavioral of RegR_tb is
+
+	component RegR is
+
+	PORT(
+		Clock	: IN 	STD_LOGIC;
+		Resetn	: IN	STD_LOGIC;
+		ENABLE	: IN	STD_LOGIC;
+		INPUT		: IN	STD_LOGIC_VECTOR(DATA_WIDTH-1 DOWNTO 0);
+		OUTPUT	: OUT 	STD_LOGIC_VECTOR(DATA_WIDTH-1 DOWNTO 0) 
+	);
+
+	end component;
+
+	signal CLOCK : STD_LOGIC := '0';
+	signal RESETN : STD_LOGIC := '0';
+	signal ENABLE : STD_LOGIC := '0';
+	signal D : STD_LOGIC_VECTOR(23 DOWNTO 0) := (OTHERS => '0');
+	signal Q : STD_LOGIC_VECTOR(23 DOWNTO 0) := (OTHERS => '0');
+	signal Q2 : STD_LOGIC_VECTOR(23 DOWNTO 0) := (OTHERS => '0');
+	signal Q3 : STD_LOGIC_VECTOR(23 DOWNTO 0) := (OTHERS => '0');
+	signal Q4 : STD_LOGIC_VECTOR(23 DOWNTO 0) := (OTHERS => '0');
+
+	constant period : time := 10 ns;
+
+begin
+
+	-- Register 1
+	Reg1: RegR port map(
+		CLOCK => Clock,
+		RESETN => Resetn,
+		ENABLE => ENABLE,
+		INPUT => D,
+		OUTPUT => Q
+	);
+	-- Register 2
+	Reg2: RegR port map(
+		CLOCK => Clock,
+		RESETN => Resetn,
+		ENABLE => ENABLE,
+		INPUT => Q,
+		OUTPUT => Q2
+	);
+	-- Register 3
+	Reg3: RegR port map(
+		CLOCK => Clock,
+		RESETN => Resetn,
+		ENABLE => ENABLE,
+		INPUT => Q2,
+		OUTPUT => Q3
+	);
+	-- Register 4
+	Reg4: RegR port map(
+		CLOCK => Clock,
+		RESETN => Resetn,
+		ENABLE => ENABLE,
+		INPUT => Q3,
+		OUTPUT => Q4
+	);
+
+
+	m50MHZ_Clock: process
+	begin
+		CLOCK <= '0'; wait for period;
+		CLOCK <= '1'; wait for period;
+	end process m50MHZ_Clock;
+
+	tb : process
+	begin
+		-- Wait 100 ns for global reset to finish
+		wait for 100 ns;
+		report "Starting [name] Test Bench" severity NOTE;
+
+		----- Unit Test -----
+		--Reset disable
+		RESETN <= '1'; wait for period;
+		assert (Q = 00)  report "Failed READ. [OUT_Port0]=" & integer'image(to_integer(unsigned(Q))) severity ERROR;
+		
+		D <= x"FFFFFF";
+		
+		--Enabling the register
+		ENABLE <= '1'; wait for 2*period;
+		-- Test each input via loop
+		for i in 0 to 256 loop 
+				D <= std_logic_vector(to_signed(i,D'length)); wait for 2*period;
+		end loop;
+
+	end process;
+
+end Behavioral;

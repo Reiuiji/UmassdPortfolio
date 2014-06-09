@@ -1,0 +1,32 @@
+#######################################
+## School: University of Massachusetts Dartmouth
+## Department: Computer and Electrical Engineering
+## Class: ECE 368 Digital Design
+## Engineer: Daniel Noyes
+##				 Massarrah Tannous
+## 
+## 
+## Create Date:    SPRING 2014
+## Module Name:    UMD_ALU_FPU
+## Project Name:   UMD-RISC 24
+## Target Devices: Spartan-3E
+## Tool versions:	 Xilinx ISE 14.7
+## Description: Clock toplevel user constraints
+## 	Locations of each pin output
+#######################################
+#Created by Constraints Editor (xc3s500e-fg320-4) - 2014/02/03
+
+NET "CLOCK" TNM_NET = "CLOCK";
+TIMESPEC TS_CLOCK = PERIOD "CLOCK" 40 ns HIGH 50 %;
+OFFSET = IN 10 ns BEFORE "CLOCK";
+OFFSET = OUT 10 ns AFTER "CLOCK";
+
+# PlanAhead Generated physical constraints 
+
+NET "COUNT_OUT[3]" LOC = F11;
+NET "COUNT_OUT[2]" LOC = E11;
+NET "COUNT_OUT[1]" LOC = E12;
+NET "COUNT_OUT[0]" LOC = F12;
+NET "CLOCK" LOC = C9;
+NET "DIRECTION" LOC = L13;
+NET "RESET" LOC = D18;

@@ -1,0 +1,22 @@
+
+# PlanAhead Generated physical constraints 
+
+NET "RESET" LOC = H13;
+NET "clr" LOC = K17;
+NET "clk_in" LOC = C9;
+NET "B1" LOC = G15;
+NET "G1" LOC = H15;
+NET "hs" LOC = F15;
+NET "ps_clk" LOC = G14 | CLOCK_DEDICATED_ROUTE = FALSE;
+NET "R1" LOC = H14;
+NET "vs" LOC = F14;
+NET "input" LOC = G13;
+NET "ascii[0]" LOC = F12;
+NET "ascii[1]" LOC = E12;
+NET "ascii[2]" LOC = E11;
+NET "ascii[3]" LOC = F11;
+NET "ascii[4]" LOC = C11;
+NET "ascii[5]" LOC = D11;
+NET "ascii[6]" LOC = E9;
+NET "SEL_WE[0]" LOC = L13;
+NET "SEL_WE[1]" LOC = L14;

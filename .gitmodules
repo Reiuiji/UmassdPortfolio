@@ -4,3 +4,6 @@
 [submodule "CIS370/ProcSim"]
 	path = CIS370/ProcSim
 	url = https://github.com/Reiuiji/ProcSim
+[submodule "ECE368/VHDL-Emporium"]
+	path = ECE368/VHDL-Emporium
+	url = https://github.com/Reiuiji/VHDL-Emporium
