@@ -1,0 +1,10 @@
+$ python2 UDPclientTimer.py 127.0.0.1 8080
+Type a message: hello
+Received echo:  HELLO  in RTT:  0.000222206115723
+Type a message: with
+Received echo:  WITH  in RTT:  0.000177145004272
+Type a message: timer
+Received echo:  TIMER  in RTT:  0.000138998031616
+Type a message: quit
+Received echo:  QUIT  in RTT:  0.000205993652344
+Client quits!

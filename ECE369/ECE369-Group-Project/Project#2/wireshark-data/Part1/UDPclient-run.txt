@@ -1,0 +1,8 @@
+$ python2 UDPclient.py 127.0.0.1 8080
+Type a message: hello
+Received echo:  HELLO
+Type a message: ece
+Received echo:  ECE
+Type a message: quit
+Received echo:  QUIT
+Client quits!

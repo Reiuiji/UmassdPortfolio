@@ -1,0 +1,24 @@
+Hello, This is all the code for ECE 369 Project B.
+
+Created by : Luis Andino, Benjamin Doiron, Mohamed Hossain, Daniel Noyes
+
+Contents
+=========
+wireshark-data:
+        All the captured data obtained in the first three parts of the project
+
+python:
+        Contains all the example code used in the project that was given from Prof. Liu.
+
+p2p:
+        Java peer to peer client application
+
+client timeout:
+        Java application with RTT and client timeout.
+
+NetApp: 
+        Part 6 Created application.
+            *Note: Still in beta/development
+            *Might have issues on chat + gui.
+
+

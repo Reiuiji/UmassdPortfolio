@@ -1,0 +1,11 @@
+$ python2 TCPclient.py 127.0.0.1 8080
+Type "quit" to exit the client or "shutdown" to turnoff the server
+Type a message: hello
+Received echo:  HELLO
+Type a message: client2
+Received echo:  CLIENT2
+Type a message: bye2
+Received echo:  BYE2
+Type a message: quit
+Received echo:  QUIT
+TCP Client quits!

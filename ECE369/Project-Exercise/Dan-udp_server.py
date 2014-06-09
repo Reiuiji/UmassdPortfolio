@@ -1,0 +1,14 @@
+from socket import *
+import sys
+serverPort = 12000
+serverSocket = socket(AF_INET, SOCK_DGRAM)
+serverSocket.bind(('', serverPort))
+print "The server is ready to receive"
+while 1:
+    message, clientAddress = serverSocket.recvfrom(2048)
+    modifiedMessage = message.upper()
+    print 'Client received: ',clientAddress,'  ',modifiedMessage
+    serverSocket.sendto(modifiedMessage, clientAddress)
+    if modifiedMessage == 'SHUTDOWN':
+        sys.exit('[!] Server Shutting Down')
+

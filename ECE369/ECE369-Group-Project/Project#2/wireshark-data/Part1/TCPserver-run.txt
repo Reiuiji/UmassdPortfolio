@@ -1,0 +1,7 @@
+$ python2 TCPserver.py 8080
+TCP Server is listening on port  8080 ...
+Accepted a connection from  ('127.0.0.1', 34345)
+Received message:  hello
+Received message:  ECE
+Received message:  quit
+TCP Server is listening on port  8080 ...

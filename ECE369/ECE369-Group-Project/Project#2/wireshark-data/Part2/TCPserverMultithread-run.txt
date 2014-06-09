@@ -1,0 +1,16 @@
+$ python2 TCPserverMultithread.py 8080
+Server runs on  Reiuiji at  127.0.0.1
+Threaded TCP Server is listening on port  8080 ...
+Threaded TCP Server is listening on port  8080 ...
+Accepted a connection from  34348
+Threaded TCP Server is listening on port  8080 ...
+Accepted a connection from  34349
+Received message:  hello
+Received message:  hello
+Received message:  client2
+Received message:  client1
+Received message:  bye2
+Received message:  bye1
+Received message:  quit
+Received message:  quit
+
