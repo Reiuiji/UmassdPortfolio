@@ -7,3 +7,6 @@
 [submodule "ECE368/VHDL-Emporium"]
 	path = ECE368/VHDL-Emporium
 	url = https://github.com/Reiuiji/VHDL-Emporium
+[submodule "Network-Security-Programs"]
+	path = ECE549
+	url = https://github.com/Reiuiji/Network-Security-Programs
