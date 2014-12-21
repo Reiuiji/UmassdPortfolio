@@ -1,0 +1,11 @@
+[xxx yyy] = gradient(V)
+imagesc(yyy)
+imagesc(xxx)
+
+contour(V), hold on, quiver(xxx,yyy), hold off
+
+zzz = sqrt(xxx.^2 + yyy.^2);
+contour(zzz)
+imagesc(zzz)
+imagesc(log(abs(zzz + 0.0001)))
+contour(log(abs(zzz + 0.0001)))
