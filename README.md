@@ -25,6 +25,9 @@ Courses
 | [ECE 368](ECE368)| Digital Design | S6-Spring-2014
 | [ECE 369](ECE369)| Computer Networks | S6-Spring-2014
 | [ECE 384](ECE384)| Random Signals and Noise | S6-Spring-2014
+| [ECE 335](ECE335)| Electromagnetic Theory I | S7-Fall-2014
+| [ECE 471](ECE471)| Communication Theory | S7-Fall-2014
+| [ECE 549](ECE549)| Network Security | S7-Fall-2014
 
 
 
