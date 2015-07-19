@@ -10,3 +10,6 @@
 [submodule "Network-Security-Programs"]
 	path = ECE549
 	url = https://github.com/Reiuiji/Network-Security-Programs
+[submodule "ECE562/HybridRAID"]
+	path = ECE562/HybridRAID
+	url = https://github.com/sbrown7792/HybridRAID.git
