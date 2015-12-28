@@ -13,3 +13,6 @@
 [submodule "ECE562/HybridRAID"]
 	path = ECE562/HybridRAID
 	url = https://github.com/sbrown7792/HybridRAID.git
+[submodule "ECE562/ECE564-Database-Programming"]
+	path = ECE562/ECE564
+	url = https://github.com/Reiuiji/ECE564-Database-Programming.git
