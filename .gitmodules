@@ -16,3 +16,6 @@
 [submodule "ECE562/ECE564-Database-Programming"]
 	path = ECE564
 	url = https://github.com/Reiuiji/ECE564-Database-Programming.git
+[submodule "ECE565-Operating-Systems"]
+	path = ECE565
+	url = https://github.com/Reiuiji/ECE565-Operating-Systems.git
