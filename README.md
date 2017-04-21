@@ -44,8 +44,13 @@ You can look through the work free but please respect the following rules:
 * Fork and create your own or improve my work
 * Overall learn and have fun
 
+Notice
+======
+This is made public as of Friday April 21st, 2017.
+I know this may be a little messy, and need house keeping. As semester's progress I forgot to post each change so I just ended up pushing at the end of semester after I recovered.
+I intended for this to be used as an archive/portfolio of my work. If you have any questions or feedback just message me or submit an issue request.
 
 -----
 MIT License
 
-© Reiuiji - "Dan N" - 2011 All Rights reserved
+© Reiuiji - "Dan N" - 2011 - 2017 All Rights reserved
