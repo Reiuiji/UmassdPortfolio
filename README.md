@@ -33,7 +33,13 @@ Courses
 | [ECE 564](https://github.com/Reiuiji/ECE564-Database-Programming)| Database Programming  | S9-Fall-2015-M1
 | [ECE 565](https://github.com/Reiuiji/ECE565-Operating-Systems)| Operating Systems  | S9-Fall-2015-M1
 
+Courses Taught
+==============
 
+* Courses that I help taught as an Teaching Assistant
+| Course | Description | semester
+|--------|-------------|---------
+| [TA ECE 368](https://github.com/Reiuiji/ECE368-Lab)| Digital Design Lab | Spring-2015, Spring-2016
 
 Usage
 =====
