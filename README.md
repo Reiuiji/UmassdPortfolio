@@ -37,6 +37,7 @@ Courses Taught
 ==============
 
 * Courses that I help taught as an Teaching Assistant
+
 | Course | Description | semester
 |--------|-------------|---------
 | [TA ECE 368](https://github.com/Reiuiji/ECE368-Lab)| Digital Design Lab | Spring-2015, Spring-2016
