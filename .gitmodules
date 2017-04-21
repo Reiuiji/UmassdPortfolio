@@ -19,3 +19,6 @@
 [submodule "ECE565-Operating-Systems"]
 	path = ECE565
 	url = https://github.com/Reiuiji/ECE565-Operating-Systems.git
+[submodule "ECE368-Lab"]
+	path = TAECE368
+	url = https://github.com/Reiuiji/ECE368-Lab.git
